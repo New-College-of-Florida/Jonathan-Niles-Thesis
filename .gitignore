@@ -1,0 +1,18 @@
+# ignore compressed files
+*.png
+*.npy
+*.gz
+*.npy
+
+# ignore sync directory
+sync/*
+
+# ignore and hdf5 and sra files that may have slipped through
+*.hdf5
+*.sra
+*.sam*
+*.bam*
+
+# ignore generated files
+*.pkl
+*.bed*

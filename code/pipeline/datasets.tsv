@@ -1,0 +1,46 @@
+# Column Definitions
+# Path, Cell Line, Replica, genome, enzyme
+
+# IMR90
+
+# Replicate 1
+mapped-hg19/SRR639025.hdf5 IMR90 R1 hg19 HindIII
+mapped-hg19/SRR639026.hdf5 IMR90 R1 hg19 HindIII
+mapped-hg19/SRR639027.hdf5 IMR90 R1 hg19 HindIII
+mapped-hg19/SRR639028.hdf5 IMR90 R1 hg19 HindIII
+mapped-hg19/SRR639029.hdf5 IMR90 R1 hg19 HindIII
+
+# Replicate 2
+mapped-hg19/SRR639030.hdf5 IMR90 R2 hg19 HindIII
+mapped-hg19/SRR639031.hdf5 IMR90 R2 hg19 HindIII
+mapped-hg19/SRR639032.hdf5 IMR90 R2 hg19 HindIII
+mapped-hg19/SRR639033.hdf5 IMR90 R2 hg19 HindIII
+
+# Replicate 3
+mapped-hg19/SRR881990.hdf5 IMR90 R3 hg19 HindIII
+mapped-hg19/SRR881991.hdf5 IMR90 R3 hg19 HindIII
+mapped-hg19/SRR881992.hdf5 IMR90 R3 hg19 HindIII
+
+# Replicate 4
+mapped-hg19/SRR881993.hdf5 IMR90 R4 hg19 HindIII
+mapped-hg19/SRR881994.hdf5 IMR90 R4 hg19 HindIII
+mapped-hg19/SRR881995.hdf5 IMR90 R4 hg19 HindIII
+
+# Replicate 5
+mapped-hg19/SRR881996.hdf5 IMR90 R5 hg19 HindIII
+
+# Replicate 6
+mapped-hg19/SRR881997.hdf5 IMR90 R6 hg19 HindIII
+
+# hESC
+
+# Replicate 2
+mapped-hg19/SRR400260.hdf5 hESC R1 hg19 HindIII
+mapped-hg19/SRR400261.hdf5 hESC R1 hg19 HindIII
+mapped-hg19/SRR400262.hdf5 hESC R1 hg19 HindIII
+mapped-hg19/SRR400263.hdf5 hESC R1 hg19 HindIII
+
+# Replicate 2
+mapped-hg19/SRR442155.hdf5 hESC R2 hg19 HindIII
+mapped-hg19/SRR442156.hdf5 hESC R2 hg19 HindIII
+mapped-hg19/SRR442157.hdf5 hESC R2 hg19 HindIII

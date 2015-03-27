@@ -1,0 +1,96 @@
+Jonathan Niles Thesis 2015
+--------------------------
+
+This code was used to produce results reported in Jonathan Niles's New College
+of Florida thesis (2015).  You should receive a directory structure along with
+this README similar to the one depicted below:
+
+- thesis/
+    - code/
+    - lib/
+    - sync/
+    - INSTALL
+    - README
+    - dependencies.sh
+
+The `lib/` directory contains library functions used throughout the thesis.
+These include i/o functions, path names, database interactions, and more.
+
+All analysis scripts are contained in the `code/` directory, with each
+subdirectory containing a specific analysis portion.  These include
+data normalization, PCA, gene expression, correlations, etc.  Any
+data or plots produced are written to `sync/`.
+
+The `sync` directory contains all data and plots that are not amenable to
+revision control.  It is the only directory not tracked by Git.
+
+Up and Running
+--------------
+
+All the code within is written in a combination of shell scripts and Python.
+Unfortunately, there are many dependencies, which can be downloaded and set up
+with the dependencies.sh script.  More details are contained in the `INSTALL`
+file.
+
+Investigations
+--------------
+
+The research portion contained in the `code/` is broken up into various
+"investigations", depending on the research question being posed.  These are
+documented in detail in each directory; however, a brief overview is given
+here, listed in order of generation.
+
+- code/
+    - pipeline/
+        pipeline/ is the entry point for all analysis.  It contains the code
+        for iteratively correcting maps downloaded from GEO.  The data
+        must be downloaded as SRA files seperately.  One these maps are
+        constructured, the raw and normalized maps are stored in a data
+        directory for later investigation
+
+    - probes/
+        probes/ provides scripts for visualization of probe distributions on
+        the contact maps.
+    
+    - heatmaps/
+        heatmaps/ provides useful plotting functions for heatmaps crafted at 
+        different resolutions. These include high-res, single chromosome 
+        heatmaps, blue and red 'checkerboard' heatmaps showing regions of
+        higher and lower contacts, and whole genome heatmaps.
+
+    - pca/
+        pca/ runs principal component analysis and stored the resultant
+        eigenvectors.  Note: this procedure takes a very long time.  Also
+        provides some plotting scripts for scree plots or vector plots.
+
+    - genes/
+        genes/ uses gene expression data from GEO to compare eigenvector
+        compartment character against gene expression changes.  Contains
+        scripts to plot the gene expression data by cell type and replicate.
+
+    - directions/
+        directions/ contains all code for generating directionality indexes at
+        different window sizes.  By default, we use the highest resolution 
+        data available - 10kb high-res single chromosome maps.  These indexes
+        are exported as numpy arrays.  Also contains scripts for plotting the
+        indexes compared to various other genetic/epigenetic features.
+
+    - domains/
+        domains/ provides scripts for domain finding from directionality
+        indexes and various bedtool comparisons to determine how well the
+        domains are preseved.
+
+    - cancer/
+        cancer/ uses mutation data from the TCGA to analyse the spread of
+        mutated genes compared to gene expression, domains, and compartment.
+
+Licensing and Usage
+-------------------
+
+All work is permissively licensed as GPLv3.  You are free to take the source
+code, compile it, modify it, redistribute it as you choose, whilst retaining
+the GPLv3 license.  If the license was not provided with this repository,
+please obtain a copy from <https://www.gnu.org/licenses/gpl-3.0.html>.
+
+Jonathan Niles
+jonathan.niles@ncf.edu

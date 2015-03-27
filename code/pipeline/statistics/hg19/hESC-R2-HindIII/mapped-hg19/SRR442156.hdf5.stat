@@ -1,0 +1,12 @@
+100_TotalReads:   143352304
+	150_ReadsWithoutUnusedChromosomes:   143352304
+		152_removedUnusedChromosomes:   0
+200_totalDSReads:   95767372
+		201_DS+SS:   143352304
+		202_SSReadsRemoved:   47584932
+	210_sameFragmentReadsRemoved:   32742919
+		212_Self-Circles:   1032964
+		214_DandlingEnds:   31506191
+		216_error:   203764
+	220_extraDandlingEndsRemoved:   3570579
+300_ValidPairs:   59453874
