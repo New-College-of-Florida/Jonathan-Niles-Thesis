@@ -1,0 +1,20 @@
+Installation Instructions
+--------------------------
+
+dependencies:
+  - Python > 2.7
+  - bedtools > 2.22.1
+  - bedops > 2.4.8
+
+python package dependencies:
+  - pip > 6.0.8
+  - mirnylib/hiclib @ 0b5b777e7303
+  - mirnylib/mirnylib @ ce3d7deca60d
+  - bx-python > 0.6.35
+  - pybedtools > 0.6.9
+
+To install all these dependencies, simply execute the dependencies.sh script
+with root privileges.
+
+$ chmod a+x ./dependencies.sh
+$ ./dependencies.sh
