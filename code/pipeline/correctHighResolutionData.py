@@ -5,7 +5,6 @@ Iteratively correct high-res heatmaps.
 Author: LMirny
 Modified by: jniles
 Date: Jan 28th, 2015
-
 """
 
 # use python 3 printing
@@ -14,8 +13,7 @@ from __future__ import print_function
 import os
 import sys
 import sh
-import perf
-import nutils
+import nutils as nu 
 
 from copy import copy
 from mirnylib.h5dict import h5dict
@@ -48,7 +46,7 @@ def correct(filename, cellType):
             pass
 
     # save the dataset
-    outDir = nutils.chkdir(icFolderTemplate.format(cellType))
+    outDir = nu.chkdir(icFolderTemplate.format(cellType))
     outFile = os.path.join(outDir, os.path.basename(filename))
     outData = h5dict(outFile,'w') # open in "write" mode
     for key in dataset.keys():
@@ -58,10 +56,6 @@ def correct(filename, cellType):
 
 def main(celltype):
     # this only works with Hi-C dataset saved by chromosome
-
-    # set up test timer
-    timer = perf.Test("High Res Iterative Correction")
-    timer.start()
 
     folder = rawFolderTemplate.format(cellType)
 
@@ -75,15 +69,10 @@ def main(celltype):
 
     for f in files:
         correct(f, cellType)
-
-    # print resultant times
-    timer.stop()
-    timer.results()
     return
 
 if __name__ == "__main__":
     cellType = sys.argv[1]
     print("Correcting all high resolution datasets in {0}".format(cellType))
-
     # run the module code
     main(cellType)

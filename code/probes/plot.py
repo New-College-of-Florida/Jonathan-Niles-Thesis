@@ -19,6 +19,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+from __future__ import print_function
+
 import pickle
 import nutils as nu
 import numpy as np
@@ -32,21 +34,28 @@ savePath = nu.chkdir(nu.join(nu.sync, "data/probes/"))
 figPath = nu.chkdir(nu.join(nu.sync, "plots/probes/"))
 genome = "/home/jniles/data/dna/hg19/"
 
-replicates = {
-    "IMR90" : ["R1", "R2", "R3", "R4", "R5", "R6"],
-    "hESC" : ["R1", "R2"]
-}
-
 def loadData(cellType):
     """
     Loads all the data for a given cell type into a binnedData instance for
     analysis.
     """
     BD = binnedData(1000000, genome=genome)
-    datasets = replicates[cellType]
+    datasets = nu.datasets[cellType]
     for ds in datasets:
         BD.simpleLoad(path.format(cellType, ds), ds)
     return BD
+
+def saveScalingData(scale, fname):
+    """exports the scaling dictionary to a python pickle"""
+    with open(fname, 'w') as outfile:
+        pickle.dump(scale, outfile)
+    return
+
+def loadScalingData(cellType):
+    """Loads scaling by replicate from preprocessed pickle data"""
+    f = nu.join(savePath, '{0}-{1}.pkl'.format(etype, cellType))
+    print("Loading data from", f)
+    return np.load(f)
 
 def calculateScaling(cellType, loader):
     """
@@ -79,27 +88,10 @@ def calculateScaling(cellType, loader):
                     if distance != 0:
                         contacts[distance] += wdata[i, j]
             scaling[key][idx] = contacts
-
-    outFile = nu.join(savePath, '{0}-{1}-{2}.pkl'.format(etype, cellType, key))
-    return saveScalingData(scaling, outFile)
-
-def saveScalingData(scale, fname):
-    """exports the scaling dictionary to a python pickle"""
-    with open(fname, 'w') as outfile:
-        pickle.dump(scale, outfile)
-    return scale
-
-def loadScalingData(cellType):
-    """
-    Loads scaling by replicate from preprocessed pickle data
-    """
-    datasets = replicates[cellType]
-    dataDict = {}
-    for rep in datasets:
-        inFile = nu.join(savePath, '{0}-{1}-{2}.pkl'.format(etype, cellType, rep))
-        with open(inFile, 'r') as f:
-            dataDict[rep] = pickle.load(f)
-    return dataDict
+    outFile = nu.join(savePath, '{0}-{1}.pkl'.format(etype, cellType))
+    print("Saving scaling file to ", outFile)
+    saveScalingData(scaling, outFile)
+    return scaling
 
 def plotScaling(cellType, dataDict, percent=False):
     """
@@ -153,22 +145,22 @@ def plotScaling(cellType, dataDict, percent=False):
 
         outFig = nu.join(folder, extension)
 
+        print("Saving figure to", outFig)
         fig.savefig(outFig, dpi=500)
         plt.close()
     return
 
-def plotAll():
-    """
-    Runs the module
-    """
-    for cellType in replicates.keys():
-
-        # make the save directory if it doesn't exist
-        mtx = loadData(cellType)
-        scaling = calculateScaling(cellType, mtx)
+def plotAll(load=False):
+    """Runs the module"""
+    for cellType in nu.datasets.keys():
+        if load:
+            scaling = loadScalingData(cellType)
+        else:
+            mtx = loadData(cellType)
+            scaling = calculateScaling(cellType, mtx)
         plotScaling(cellType, scaling, percent=True)
         plotScaling(cellType, scaling, percent=False)
     return
 
 if __name__ == "__main__":
-    plotAll()
+    plotAll(load=True)

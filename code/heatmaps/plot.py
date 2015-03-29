@@ -5,19 +5,13 @@ All heatmap type plots
 
 from __future__ import print_function
 
-import os
 import numpy as np
 import nutils as nu
 import matplotlib.pyplot as plt
 from hiclib.binnedData import binnedData
 from hiclib.highResBinnedData import HiResHiC
 
-datasets = {
-    "IMR90" : ["R1", "R2", "R3", "R4", "R5", "R6"],
-    "hESC" : ["R1", "R2"]
-}
-
-outDir = nu.chkdir(os.path.join(nu.sync, "heatmaps/"))
+outDir = nu.chkdir(nu.join(nu.sync, "heatmaps/"))
 
 # Constants
 cpath = "/home/jniles/data/{0}/ic/"
@@ -85,7 +79,7 @@ def highResHM(cellType, chrom, rep="R1"):
     :returns: None
     """
 
-    saveDir = nu.chkdir(os.path.join(outDir, 'highres/{0}/'.format(cellType)))
+    saveDir = nu.chkdir(nu.join(outDir, 'highres/{0}/'.format(cellType)))
 
     # make sure chromosomes are labeled properly
     if chrom == 23:
@@ -108,7 +102,7 @@ def highResHM(cellType, chrom, rep="R1"):
 
     # save the figure
     figPath = "{0}-{1}-{2}.png".format(cellType, rep, chromLabel)
-    fig.savefig(os.path.join(saveDir, figPath), dpi=800)
+    fig.savefig(nu.join(saveDir, figPath), dpi=800)
     plt.close()
     return
 
@@ -116,7 +110,7 @@ def plotAllHighResHeatmaps():
     """
     plots all the high res heatmaps you could ask for
     """
-    for cellType in datasets.keys():
+    for cellType in nu.datasets.keys():
         for chrom in xrange(2,20):
             highResHM(cellType, chrom)
 
@@ -146,11 +140,8 @@ Whole Genome HeatMap
 """
 
 def plotGenomeHeatmap(cellType, replicate, resolution, red=False, src="raw"):
-    """
-    plots a genome heatmap
-    """
+    """plots a genome heatmap"""
     print("Plotting whole genome heatmap: {0} {1} {2} {3}".format(cellType, src, replicate, resolution))
-
 
     res = nu.strToResolution(resolution)
     bd = binnedData(res, genome)
@@ -158,31 +149,31 @@ def plotGenomeHeatmap(cellType, replicate, resolution, red=False, src="raw"):
     path = "/home/jniles/data/{0}/{1}/{0}-{2}-HindIII-{3}.hm"
     inFile = path.format(cellType, src, replicate, resolution)
     bd.simpleLoad(inFile, "key")
-    data = bd.dataDict["key"]
+    data = np.log(bd.dataDict["key"])
 
     # plot
     fig, ax = plt.subplots()
-
     ax.set_title("{0} {1} {2} {3}".format(cellType, src, replicate, resolution))
 
     if red:
-        ax.imshow(np.log(data), cmap=plt.cm.Reds, interpolation='None')
+        ax.imshow(data, cmap=plt.cm.Reds, interpolation='None')
     else:
-        ax.imshow(np.log(data))
+        ax.imshow(data, interpolation='None')
 
     addChromosomeTickMarks(bd, ax)
 
-    savePath = nu.chkdir(os.path.join(outDir, "genome/"))
-    outPng = os.path.join(savePath, "{0}-{1}-{2}-{3}.png".format(src, cellType, replicate, resolution))
-    fig.savefig(outPng)
+    # save the figure
+    savePath = nu.chkdir(nu.join(outDir, "genome/{0}/".format(src)))
+    outPng = nu.join(savePath, "{0}-{1}-{2}.png".format(cellType, replicate, resolution))
+    fig.savefig(outPng, dpi=650)
 
     # explicitly close the figure to conserve memory
     plt.close()
     return
 
 def plotGenomeHeatmaps():
-    for cellType in datasets.keys():
-        for rep in datasets[cellType]:
+    for cellType in nu.datasets.keys():
+        for rep in nu.datasets[cellType]:
             for res in resolutions:
                 plotGenomeHeatmap(cellType, rep, res, src="raw")
                 plotGenomeHeatmap(cellType, rep, res, src="ic")
@@ -198,9 +189,9 @@ def plotCheckerboardHeatMap(cellType, replicate, resolution, chrom, src="raw"):
     print("Loading data for chromosome {0}...".format(chrom))
 
     if src == "raw":
-        path = os.path.join(rpath, "{0}-{1}-HindIII-{2}.hm")
+        path = nu.join(rpath, "{0}-{1}-HindIII-{2}.hm")
     else:
-        path = os.path.join(cpath, "{0}-{1}-HindIII-{2}.hm")
+        path = nu.join(cpath, "{0}-{1}-HindIII-{2}.hm")
 
     # convert string resolution if necessary
     if type(resolution) == type("S"):
@@ -231,8 +222,8 @@ def plotCheckerboardHeatMap(cellType, replicate, resolution, chrom, src="raw"):
     ax.set_xlabel(label)
     ax.set_ylabel(label)
 
-    saveDir = nu.chkdir(os.path.join(outDir, "checkerboard/"))
-    savePath = os.path.join(saveDir, "{0}-{1}-{2}-{3}.png".format(cellType, replicate, resolution, label))
+    saveDir = nu.chkdir(nu.join(outDir, "checkerboard/"))
+    savePath = nu.join(saveDir, "{0}-{1}-{2}-{3}.png".format(cellType, replicate, resolution, label))
 
     fig.savefig(savePath, dpi=850)
 
@@ -241,21 +232,16 @@ def plotCheckerboardHeatMap(cellType, replicate, resolution, chrom, src="raw"):
     return
 
 def plotCheckboardHeatmaps():
-    """
-    """
-    for cellType in datasets.keys():
-        for rep in datasets[cellType]:
+    """plots all checkerboard heatmaps"""
+    for cellType in nu.datasets.keys():
+        for rep in nu.datasets[cellType]:
             for res in resolutions:
                 for i in xrange(1,20):
                     plotCheckerboardHeatMap(cellType, rep, res, i)
                     plotCheckerboardHeatMap(cellType, rep, res, i, src="ic")
     return
 
-"""
-
-"""
-
 if __name__ == "__main__":
     #plotAllHighResHeatmaps()
-    #plotGenomeHeatmaps()
-    plotCheckboardHeatmaps()
+    plotGenomeHeatmaps()
+    #plotCheckboardHeatmaps()

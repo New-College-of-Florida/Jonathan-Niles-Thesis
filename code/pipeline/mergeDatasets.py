@@ -32,11 +32,11 @@ import nutils as nu
 from hiclib.fragmentHiC import HiCdataset
 
 def genomeFolder(name):
-    return os.path.join("/home/jniles/data/dna", name)
+    return nu.join("/home/jniles/data/dna", name)
 
 byChromosomeResolutionsKb = [100, 40]
 HiResWithOverlapResolutionsKb = [20, 10]
-wholeGenomeResolutionsKb = [1000,500,200]
+wholeGenomeResolutionsKb = [2000, 1000,500,200]
 
 def refineDataset(filenames, create=True, delete=True, parseInMemory=True):
     """
@@ -62,7 +62,7 @@ def refineDataset(filenames, create=True, delete=True, parseInMemory=True):
     in_files = filenames[0]
     out_file = filenames[1]
 
-    statFolder = os.path.join("statistics", out_file)
+    statFolder = nu.join("statistics", out_file)
 
     workingGenome = filenames[2]
     enzyme = filenames[3]
