@@ -44,8 +44,8 @@ here, listed in order of generation.
     - pipeline/
         pipeline/ is the entry point for all analysis.  It contains the code
         for iteratively correcting maps downloaded from GEO.  The data
-        must be downloaded as SRA files seperately.  One these maps are
-        constructured, the raw and normalized maps are stored in a data
+        must be downloaded as SRA files seperately.  Once these maps are
+        constructed, the raw and normalized maps are stored in a data
         directory for later investigation
 
     - probes/

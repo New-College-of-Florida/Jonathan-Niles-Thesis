@@ -66,14 +66,14 @@ def probesByCompartment(cellType, rep, res, n=0):
 
     plt.suptitle("{0} {1} {2}".format(cellType, rep, res))
 
-    ax.set_title("Compartment Expression (pc={0})".format(n+1))
+    ax.set_title("Gene Expression by Principal Component {0}".format(n+1))
     ax.set_xlabel("Compartment Character")
     ax.set_ylabel("Probe Log2 Expression Change")
     ax.set_ylim((-8, 8))
 
     corr = spearmanr(compartments, delta)[0]
 
-    s = "Spearman = {0:0.3f}".format(corr)
+    s = "\\rho = {0:0.3f}".format(corr)
     ax.text(0.9, 0.9, s,
             horizontalalignment='right',
             verticalalignment='top',
@@ -106,7 +106,7 @@ def cellTypeExpressionHistogram(cellType):
     normal = mlab.normpdf(bins, mean, stddev)
     ax.plot(bins, normal, 'k--', label=text)
 
-    ax.set_title("H1/IMR90 Gene Expression Changes")
+    ax.set_title("{0} Gene Expression".format(cellType))
     ax.set_xlabel('Expression Level Log2')
     ax.set_ylabel('Frequency')
 
@@ -151,42 +151,56 @@ def expressionChangeHistogram():
     plt.close()
     return
 
-def probeChangesByCompartmentChanges(n=0, res="200k"):
-    """Plots a volcano plot of probe changes by compartment change"""
+def probeChangesByCompartmentChanges(res="200k", n=1):
+    """Plots a volcano plot of probe changes by compartment change for
+    the first serveral PCs"""
     data = loadRawArray()
     icomponents = np.loadtxt(tmpl.format("IMR90", "R1", res))
     hcomponents = np.loadtxt(tmpl.format("hESC", "R1", res))
-    ipc = icomponents[n] # component n
-    hpc = hcomponents[n]
 
-    # calculate the change in principal components, biasing for large changes
-    # this is the "compartment change"
-    pc = np.abs(ipc - hpc)
-    
     # create columns for quick iteration
     iCols = ["imr90_{0}".format(i) for i in xrange(1,3)]
     hCols = ["hesc_{0}".format(i) for i in xrange(1,3)]
     iMeans = np.array([np.mean([np.log(i),np.log(j)]) for i,j in data[iCols]])
     hMeans= np.array([np.mean([np.log(i),np.log(j)]) for i,j in data[hCols]])
     delta = iMeans - hMeans
+    colorString = 'rgbyk'
+    colors = colorString[:n]
 
     # get the numerical resolution
     nres = resMap[res]
     starts = data['start'] / nres
     ends = (data['end'] / nres) + 1
 
-    compartments = np.array([np.mean(pc[start:end]) for start, end in zip(starts, ends)])
-   
     fig, ax = plt.subplots() 
 
-    # plot compartment change versus expression change
-    ax.plot(delta, compartments, '.k', alpha=0.5, markersize=0.5)
-    #ax.set_ylim(0, np.max(delta)+1)
-    #ax.set_xticks([])
+    for p, color in enumerate(colors):
+
+        # calculate the change in principal components, biasing for large
+        # changes this is the "compartment change"
+        ipc = icomponents[p]
+        hpc = hcomponents[p]
+        pc = ipc - hpc
+        compartments = np.array([np.mean(pc[i:j]) for i, j in zip(starts, ends)])
+
+        # plot compartment change versus expression change
+        ax.plot(delta, compartments, 'o', alpha=0.25, color=color,
+                markersize=2, label="PC{0}".format(p+1))
+
+        corr, p = spearmanr(delta, compartments)
+        s = "$\\rho$ = {0:0.3f}".format(corr)
+        ax.text(0.95, 0.9, s,
+                horizontalalignment='right',
+                verticalalignment='top',
+                transform=ax.transAxes)
+
+    plt.suptitle("hESC vs IMR90")
+    ax.set_title("Gene Expression by Principal Component")
     ax.set_ylabel("Compartment Change")
     ax.set_xlabel("Expression Change")
+    ax.legend()
 
-    fname = nu.join(volcanoDir, "volcano-pc{0}.png".format(n+1))
+    fname = nu.join(volcanoDir, "volcano.png")
     print("Saving file to", fname)
     fig.savefig(fname, dpi=600)
     plt.close()
@@ -203,6 +217,5 @@ def plotAll():
     return
 
 if __name__ == "__main__":
-    #plotAll()
-    for i in range(3):
-        probeChangesByCompartmentChanges(n=i)
+    plotAll()
+    #probeChangesByCompartmentChanges()
