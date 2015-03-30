@@ -132,8 +132,9 @@ def domainSizeByWindowSize():
     ax.grid()
     
     ax.set_title("Domain Size Scaling vs Window Size")
-    windows.insert(0, 0)
-    ax.set_xticklabels(map(lambda i: "{0}kb".format(i), windows))
+    wins =  windows[:]
+    wins.insert(0,0)
+    ax.set_xticklabels(map(lambda i: "{0}kb".format(i), wins))
     ax.set_xlabel("Window Size")
     ax.set_ylabel("Domain Size (kb)")
 
@@ -149,3 +150,4 @@ def plotAllBars():
 
 if __name__ == "__main__":
     domainSizeByWindowSize()
+    plotAllBars()

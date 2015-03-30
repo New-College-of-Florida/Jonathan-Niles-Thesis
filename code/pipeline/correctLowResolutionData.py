@@ -6,40 +6,28 @@ It uses BinnedData, meaning that you need to have resolution of 1000kb or more
 
 from __future__ import print_function
 
+import nutils as nu
 from hiclib.binnedData import binnedData
 
-# names to be mapped
-fnames = [
-    "/home/jniles/data/IMR90/raw/IMR90-all-HindIII-1000k.hm",
-    "/home/jniles/data/IMR90/raw/IMR90-R1-HindIII-1000k.hm",
-    "/home/jniles/data/IMR90/raw/IMR90-R2-HindIII-1000k.hm",
-    "/home/jniles/data/IMR90/raw/IMR90-R3-HindIII-1000k.hm",
-    "/home/jniles/data/IMR90/raw/IMR90-R4-HindIII-1000k.hm",
-    "/home/jniles/data/IMR90/raw/IMR90-R5-HindIII-1000k.hm",
-    "/home/jniles/data/IMR90/raw/IMR90-R6-HindIII-1000k.hm",
-    "/home/jniles/data/hESC/raw/hESC-R1-HindIII-1000k.hm",
-    "/home/jniles/data/hESC/raw/hESC-R2-HindIII-1000k.hm",
-    "/home/jniles/data/hESC/raw/hESC-all-HindIII-1000k.hm"
-]
-
+# paths
+genome = "/home/jniles/data/dna/hg19/"
 path = "/home/jniles/data/{0}/raw/{0}-{1}-HindIII-{2}.hm"
 resolutions = {
     "2000k" : 2000000,
     "1000k" : 1000000,
-    "500K"  : 500000,
-    "200K"  : 200000,
+    "500k"  : 500000,
+    "200k"  : 200000,
 }
 
-names = map(lambda s: s.split("/")[-1], fnames)
-exportnames = map(lambda s: s.replace("raw", "ic"), fnames)
+def correctResolution(paths, resolution):
+    """corrects a series of maps at a given resolution"""
 
-resolution = 1000000
-genome = "/home/jniles/data/dna/hg19/"
-
-def main():
+    print("Correcting all datasets at ", resolution)
     data = binnedData(resolution, genome)
+    names = map(lambda s: s.split("/")[-1], paths)
+    exportnames = map(lambda s: s.replace("raw", "ic"), paths)
 
-    for name,fname,exportname in zip(names,fnames,exportnames):
+    for name,fname,exportname in zip(names,paths,exportnames):
         print("Loading ...", name)
         data.simpleLoad(fname, name)
 
@@ -64,9 +52,22 @@ def main():
     # do iterative correction 
     data.iterativeCorrectWithoutSS() 
 
+    print("Saving files to", exportnames)
     for name, exportname in zip(names, exportnames): 
         print("Saving", exportnames)
         data.export(name, exportname)
+    return
+
+
+def main():
+    """corrects all resolutions sequentially"""
+    for kres, nres in resolutions.items():
+        paths = []
+        for cellType in nu.datasets.keys():
+            for rep in nu.datasets[cellType]:
+                paths.append(path.format(cellType, rep, kres))
+        print("Found paths:", paths)
+        correctResolution(paths, nres)
     return
 
 if __name__ == "__main__":

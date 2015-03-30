@@ -114,12 +114,15 @@ def plotScaling(cellType, dataDict, percent=False):
                 x = np.linspace(0, 1, length)
 
             # plot on the same axis
-            ax.plot(x, norm, label="Chr{0}".format(chrom))
-
-        # legends
-        ax.set_title('{0} {1} Contact Scaling'.format(cellType, rep))
+            if chrom + 1 == 23:
+                label = "X"
+            else:
+                label = chrom + 1
+            ax.plot(x, norm, label="{0}".format(label))
 
         # labels
+        ax.set_title('{0} {1} Contact Scaling'.format(cellType, rep))
+
         if percent:
             ax.set_xlabel('Percentage of Chromosome')
         else: 
@@ -130,9 +133,7 @@ def plotScaling(cellType, dataDict, percent=False):
         ax.minorticks_on()
 
         # make sure the legend is properly placed
-        box = ax.get_position()
-        ax.set_position([box.x0, box.y0, box.width * 0.75, box.height])
-        ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), ncol=2)
+        ax.legend(loc='best', fontsize=12, ncol=2, title="Chromosomes", fancybox=True)
 
         # save and close
         extension = '{0}-{1}-{2}.png'.format(etype,cellType, rep)
@@ -144,9 +145,8 @@ def plotScaling(cellType, dataDict, percent=False):
             folder = nu.chkdir(nu.join(figPath, "distance/"))
 
         outFig = nu.join(folder, extension)
-
         print("Saving figure to", outFig)
-        fig.savefig(outFig, dpi=500)
+        fig.savefig(outFig, dpi=400)
         plt.close()
     return
 

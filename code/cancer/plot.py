@@ -23,10 +23,10 @@ from __future__ import print_function
 
 import numpy as np
 import nutils as nu
-from itertools import cycle
+import scipy.stats as stats
+from matplotlib import mlab
 from pybedtools import BedTool
 import matplotlib.pyplot as plt
-
 
 inDir = nu.join(nu.sync, "data/domains/bed/")
 tmpl = "{0}-{1}-{2}kb.bed"
@@ -40,53 +40,28 @@ def mutationTypePieChart():
 
     fig, ax = plt.subplots(figsize=[10,10])
 
-    cmap = plt.cm.prism
+    cmap = plt.cm.brg
     colors = cmap(np.linspace(0., 1., len(counts)))
 
-    patches = ax.pie(counts, labels=utypes, colors=colors, labeldistance=1.05)
-    for wedge in patches[0]:
+    patches, texts = ax.pie(counts, colors=colors, labeldistance=1.05, startangle=90)
+    for wedge in patches:
         wedge.set_edgecolor('white')
 
     ax.set_title("Mutation Types");
-
-    ax.legend(patches, utypes, loc='left center', bbox_to_anchor=(-0.1, 1.),
-                       fontsize=8)
+    ax.legend(patches, utypes, loc='best', fontsize=14)
+    plt.axis('equal')
+    plt.tight_layout()
 
     fname = nu.join(nu.sync, "plots/genes/mutationTypePieChart.png")
     print("Saving mutation types to", fname)
-    plt.savefig(fname, bbox_inches='tight', dpi=600)
-    return
-
-def distanceToLesions(cellType="IMR90", rep="R1"):
-    lesions = BedTool('tcga.bed')
-
-    data = []
-    for win in windows:
-        fname = nu.join(inDir, tmpl.format(cellType, rep, win))
-        print("Loading data from", fname)
-        domains = BedTool(fname)
-        
-        # mutations in the domain
-        lesionsInDomains = lesions.intersect(domains)
-
-        # compare to random
-        shuffles = []
-        for i in xrange(250):
-            rand = domains.shuffle(genome='hg19', chrom=True)
-            shuffles.append(len(lesions.intersect(rand)))
-        randCounts = np.mean(shuffles)
-        data.append((len(lesionsInDomains), randCounts))
-
-    print(data)
-    fname = "{0}-{1}-shuffle.npytxt".format(cellType,rep)
-    print("Saving data to ", fname)
-    np.savetxt(fname, data)
-    #ax, fig = plt.subplots()
+    plt.savefig(fname, bbox_inches='tight', dpi=500)
+    plt.close()
     return
 
 def distanceToMutations(cellType="IMR90", rep="R1"):
-    """"""
+    """distance between domains and cancerous lesions"""
     lesions = BedTool('tcga.bed')
+    saveDir = nu.chkdir(nu.join(nu.sync, "plots/domains/shuffled/"))
 
     data = []
     for win in windows:
@@ -99,16 +74,44 @@ def distanceToMutations(cellType="IMR90", rep="R1"):
 
         # compare to random
         distribution = []
-        for i in xrange(250):
+        for i in xrange(500):
             rand = domains.shuffle(genome='hg19', chrom=True)
             distribution.append(len(lesions.intersect(rand)))
 
-        # add in data
-        data.append((len(lesionsInDomains), distribution))
+        # plot distribution
+        fig, ax = plt.subplots()
 
-    np.savetxt("histogram.npytxt", np.array(data))
-    return data
+        plt.suptitle("{0} {1}".format(cellType, rep))
+        ax.set_title("Resampled Null Distribution {0}kb".format(win))
+        ax.set_xlabel("Number of Lesions in Domains")
+        ax.set_ylabel("Frequency")
+    
+        print("Plotting histogram for", win, "kb")
+        n, bins, patches = ax.hist(distribution, bins=25, histtype="step",
+                color="b", normed=True, label="Shuffled Domains")
+
+        # calculating normal distribution, p value
+        mean, stddev = np.mean(distribution), np.std(distribution)
+        ndist = mlab.normpdf(bins, mean, stddev)
+        text = "N($\mu={0:0.2f}$, $\sigma={1:0.2f}$)".format(mean, stddev)
+        ax.plot(bins, ndist, "r--", label=text)
+        
+        # plot the actual mean
+        v = len(lesionsInDomains)
+        ax.axvline(v, color="k", label="Observed Number")
+        pValue = 1 - stats.norm(mean, stddev).cdf(v)
+        pText = "$p$-value = {0:0.03f}".format(pValue)
+
+        ax.legend(loc='best', title=pText, fancybox=True)
+        ax.minorticks_on()
+    
+        # save stuff
+        fname = nu.join(saveDir, "window-{0}kb.png".format(win))
+        print("Saving to", fname)
+        fig.savefig(fname, dpi=500)
+        plt.close()
+    return
 
 if __name__ == "__main__":
-    mutationTypePieChart()
-    #distanceToLesions() 
+    #mutationTypePieChart()
+    distanceToMutations() 
