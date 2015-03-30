@@ -37,8 +37,8 @@ pltDIDir = nu.chkdir(nu.join(nu.sync, "plots/di/index/"))
 btmpl = "{0}-{1}-{2}kb.bed"
 dtmpl = "{0}-{1}-{2}kb.npy"
 columns = ['chrom', 'start', 'end', 'value', 'sign', 'length', 'uuid']
-#windows = [100, 200, 400, 800, 1000]
-windows = [200, 400, 800, 1000]
+windows = [100, 200, 400, 800, 1000]
+#windows = [200, 400, 800, 1000]
 
 # flattens arrays of arrays to a single array
 squash = lambda arr: np.array(list(itertools.chain(*arr)))
@@ -205,5 +205,37 @@ def plotAll():
                 plotDomainSizeHistogram(cellType, rep, win, bySign=False)
                 plotDirectionalityIndex(cellType, rep, win, norm=True)
 
+def plotCorrelationsByWindowSize():
+    """plots the mean and min correlations by window size"""
+    
+    dataDir = nu.join(nu.sync, "data/di/coor/")
+    dpath = "{0}kb.window.npytxt"
+    data = []
+    labels = []
+    for win in windows:
+        data.append(np.loadtxt(dpath.format(win)))
+        labels.append("{0}kb".format(win))
+
+    mins = map(np.min, data)
+    means = map(np.mean, data)
+
+    fig, ax = plt.subplots()
+
+    x = np.arange(len(windows))
+    ax.plot(x, mins, color="g", label="min")
+    ax.plot(x, means, color="y", labee="mean")
+    
+    ax.set_xticklabels(labels)
+    ax.set_xlabel("Window Sizes")
+    ax.set_ylabel("$Spearman's \\rho$")
+    ax.set_title("DI Correlation by Window Size")
+
+    outFig = nu.join(nu.sync, "plots/di/correlationsByWindow.png")
+    fig.savefig(outFig, dpi=450)
+    plt.close()
+    return
+
+
 if __name__ == "__main__":
-    plotAll()
+    #plotAll()
+    plotCorrelationsByWindowSize()
