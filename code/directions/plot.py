@@ -207,13 +207,14 @@ def plotAll():
 
 def plotCorrelationsByWindowSize():
     """plots the mean and min correlations by window size"""
-    
-    dataDir = nu.join(nu.sync, "data/di/coor/")
+   
+    print("Plotting correlations by Window Size")
+    dataDir = nu.join(nu.sync, "data/di/corr/")
     dpath = "{0}kb.window.npytxt"
     data = []
     labels = []
     for win in windows:
-        data.append(np.loadtxt(dpath.format(win)))
+        data.append(np.loadtxt(nu.join(dataDir, dpath.format(win))))
         labels.append("{0}kb".format(win))
 
     mins = map(np.min, data)
@@ -222,15 +223,21 @@ def plotCorrelationsByWindowSize():
     fig, ax = plt.subplots()
 
     x = np.arange(len(windows))
-    ax.plot(x, mins, color="g", label="min")
-    ax.plot(x, means, color="y", labee="mean")
+    ax.plot(x, mins, "o-g", label="min")
+    ax.plot(x, means, "o-y", label="mean")
     
+    ax.set_xticks(x)
     ax.set_xticklabels(labels)
     ax.set_xlabel("Window Sizes")
-    ax.set_ylabel("$Spearman's \\rho$")
+    ax.set_ylabel("Spearman's $\\rho$")
     ax.set_title("DI Correlation by Window Size")
+    ax.set_ylim(0, 1)
+    ax.grid()
+
+    ax.legend(loc='best')
 
     outFig = nu.join(nu.sync, "plots/di/correlationsByWindow.png")
+    print("Saving figure to", outFig)
     fig.savefig(outFig, dpi=450)
     plt.close()
     return

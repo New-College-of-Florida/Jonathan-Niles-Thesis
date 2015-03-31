@@ -73,7 +73,7 @@ def probesByCompartment(cellType, rep, res, n=0):
 
     corr = spearmanr(compartments, delta)[0]
 
-    s = "\\rho = {0:0.3f}".format(corr)
+    s = "$\\rho = {0:0.3f}$".format(corr)
     ax.text(0.9, 0.9, s,
             horizontalalignment='right',
             verticalalignment='top',
@@ -188,7 +188,7 @@ def probeChangesByCompartmentChanges(res="200k", n=1):
                 markersize=2, label="PC{0}".format(p+1))
 
         corr, p = spearmanr(delta, compartments)
-        s = "$\\rho$ = {0:0.3f}".format(corr)
+        s = "$\\rho = {0:0.3f}$".format(corr)
         ax.text(0.95, 0.9, s,
                 horizontalalignment='right',
                 verticalalignment='top',
@@ -218,4 +218,4 @@ def plotAll():
 
 if __name__ == "__main__":
     plotAll()
-    #probeChangesByCompartmentChanges()
+    probeChangesByCompartmentChanges()
