@@ -1,0 +1,118 @@
+Gene symbol, Chromosome band location, Type, Group
+FRA1A, 1p36, Common; aphidicolin, 4
+FRA1B, 1p32, Common; aphidicolin, 4
+FRA1C, 1p31.2, Common; aphidicolin, 4
+FRA1L, 1p31, Common; aphidicolin, 4
+FRA1D, 1p22, Common; aphidicolin, 4
+FRA1M, p21.3, Rare; folic acid, 1
+FRA1E, 1p21.2, Common; aphidicolin, 4
+FRA1J, 1q12, Common; 5-azacytidine, 5
+FRA1F, 1q21, Common; aphidicolin, 4
+FRA1G, 1q25.1, Common; aphidicolin, 4
+FRA1K, 1q31, Common; aphidicolin, 4
+FRA1H, 1q42, Common; 5-azacytidine, 5
+FRA1I, 1q44, Common; aphidicolin, 4
+FRA2C, 2p24.2, Common; aphidicolin, 4
+FRA2D, 2p16.2, Common; aphidicolin, 4
+FRA2E, 2p13, Common; aphidicolin, 4
+FRA2L, 2p11.2, Rare; folic acid, 1
+FRA2A, 2q11.2, Rare; folic acid, 1
+FRA2B, 2q13, Rare; folic acid, 1
+FRA2F, 2q21.3, Common; aphidicolin, 4
+FRA2K, 2q22.3, Rare; folic acid, 1
+FRA2G, 2q31, Common; aphidicolin, 4
+FRA2H, 2q32.1, Common; aphidicolin, 4
+FRA2I, 2q33, Common; aphidicolin, 4
+FRA2J, 2q37.3, Common; aphidicolin, 4
+FRA3A, 3p24.2, Common; aphidicolin, 4
+FRA3B, 3p14.2, Common; aphidicolin, 4
+FRA3D, 3q25, Common; aphidicolin, 4
+FRA3C, 3q27, Common; aphidicolin, 4
+FRA4A, 4p16.1, Common; aphidicolin, 4
+FRA4D, 4p15, Common; aphidicolin, 4
+FRA4B, 4q12, Common; BrdU, 6
+FRA4C, 4q31.1, Common; aphidicolin, 4
+FRA5E, 5p14, Common; aphidicolin, 4
+FRA5A, 5p13, Common; BrdU, 6
+FRA5B, 5q15, Common; BrdU, 6
+FRA5D, 5q15, Common; aphidicolin, 4
+FRA5F, 5q21, Common; aphidicolin, 4
+FRA5C, 5q31.1, Common; aphidicolin, 4
+FRA5G, 5q35, Rare; folic acid, 1
+FRA6B, 6p25.1, Common; aphidicolin, 4
+FRA6A, 6p23, Rare; folic acid, 1
+FRA6C, 6p22.2, Common; aphidicolin, 4
+FRA6D, 6q13, Common; BrdU, 6
+FRA6G, 6q15, Common; aphidicolin, 4
+FRA6F, 6q21, Common; aphidicolin, 4
+FRA6E, 6q26, Common; aphidicolin, 4
+FRA7B, 7p22, Common; aphidicolin, 4
+FRA7C, 7p14.2, Common; aphidicolin, 4
+FRA7D, 7p13, Common; aphidicolin, 4
+FRA7A, 7p11.2, Rare; folic acid, 1
+FRA7J, 7q11, Common; aphidicolin, 4
+FRA7E, 7q21.2, Common; aphidicolin, 4
+FRA7F, 7q22, Common; aphidicolin, 4
+FRA7G, 7q31.2, Common; aphidicolin, 4
+FRA7H, 7q32.3, Common; aphidicolin, 4
+FRA7I, 7q36, Common; aphidicolin, 4
+FRA8B, 8q22.1, Common; aphidicolin, 4
+FRA8A, 8q22.3, Rare; folic acid, 1
+FRA8C, 8q24.1, Common; aphidicolin, 4
+FRA8E, 8q24.1, Rare; distamycin A, 2b
+FRA8D, 8q24.3, Common; aphidicolin, 4
+FRA9A, 9p21, Rare; folic acid, 1
+FRA9C, 9p21, Common; BrdU, 6
+FRA9F, 9q12, Common; 5-azacytidine, 5
+FRA9D, 9q22.1, Common; aphidicolin, 4
+FRA9B, 9q32, Rare; folic acid, 1
+FRA9E, 9q32, Common; aphidicolin, 4
+FRA10G, 10q11.2, Common; aphidicolin, 4
+FRA10C, 10q21, Common; BrdU, 6
+FRA10D, 10q22.1, Common; aphidicolin, 4
+FRA10A, 10q23.3, Rare; folic acid, 1
+FRA10B, 10q25.2, Rare; BrdU, 3
+FRA10E, 10q25.2, Common; aphidicolin, 4
+FRA10F, 10q26.1, Common; aphidicolin, 4
+FRA11C, 11p15.1, Common; aphidicolin, 4
+FRA11I, 11p15.1, Rare; distamycin A, 2b
+FRA11D, 11p14.2, Common; aphidicolin, 4
+FRA11E, 11p13, Common; aphidicolin, 4
+FRA11H, 11q13, Common; aphidicolin, 4
+FRA11A, 11q13.3, Rare; folic acid, 1
+FRA11F, 11q14.2, Common; aphidicolin, 4
+FRA11B, 11q23.3, Rare; folic acid, 1
+FRA11G, 11q23.3, Common; aphidicolin, 4
+FRA12A, 12q13.1, Rare; folic acid, 1
+FRA12B, 12q21.3, Common; aphidicolin, 4
+FRA12E, 12q24, Common; aphidicolin, 4
+FRA12D, 12q24.13, Rare; folic acid, 1
+FRA12C, 12q24.2, Rare; BrdU, 3
+FRA13A, 13q13.2, Common; aphidicolin, 4
+FRA13B, 13q21, Common; BrdU, 6
+FRA13C, 13q21.2, Common; aphidicolin, 4
+FRA13D, 13q32, Common; aphidicolin, 4
+FRA14B, 14q23, Common; aphidicolin, 4
+FRA14C, 14q24.1, Common; aphidicolin, 4
+FRA15A, 15q22, Common; aphidicolin, 4
+FRA16A, 16p13.11, Rare; folic acid, 1
+FRA16E, 16p12.1, Rare; distamycin A, 2b
+FRA16B, 16q22.1, Rare; distamycin A, 2a
+FRA16C, 16q22.1, Common; aphidicolin, 4
+FRA16D, 16q23.2, Common; aphidicolin, 4
+FRA17A, 17p12, Rare; distamycin A, 2a
+FRA17B, 17q23.1, Common; aphidicolin, 4
+FRA18A, 18q12.2, Common; aphidicolin, 4
+FRA18B, 18q21.3, Common; aphidicolin, 4
+FRA19B, 19p13, Rare; folic acid, 1
+FRA19A, 19q13, Common; 5-azacytidine, 5
+FRA20B, 20p12.2, Common; aphidicolin, 4
+FRA20A, 20p11.23, Rare; folic acid, 1
+FRA22B, 22q12.2, Common; aphidicolin, 4
+FRA22A, 22q13.1, Rare; folic acid, 1
+FRAXB, Xp22.31, Common; aphidicolin, 4
+FRAXC, Xq22.1, Common; aphidicolin, 4
+FRAXD, Xq27.2, Common; aphidicolin, 4
+FRAXA, Xq27.3, Rare; folic acid, 1
+FRAXE, Xq28, Rare; folic acid, 1
+FRAXF, Xq28, Rare; folic acid, 1

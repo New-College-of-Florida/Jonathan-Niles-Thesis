@@ -216,6 +216,12 @@ def plotAll():
     expressionChangeHistogram()
     return
 
+def geneExpressionByLesions():
+    """plots the expression changy level by the number of lesions in the
+    gene from the tcga dataset"""
+    lesions = "/home/jniles/data/tcga/tcga.bed"
+    return
+
 if __name__ == "__main__":
     plotAll()
     probeChangesByCompartmentChanges()

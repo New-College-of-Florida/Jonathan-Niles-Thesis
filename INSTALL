@@ -5,6 +5,7 @@ dependencies:
   - Python > 2.7
   - bedtools > 2.22.1
   - bedops > 2.4.8
+  - kentutils > v302
 
 python package dependencies:
   - pip > 6.0.8

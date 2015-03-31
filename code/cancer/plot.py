@@ -28,9 +28,12 @@ from matplotlib import mlab
 from pybedtools import BedTool
 import matplotlib.pyplot as plt
 
-inDir = nu.join(nu.sync, "data/domains/bed/")
+bedDir = nu.join(nu.sync, "data/domains/bed/")
+conservedDir = nu.join(nu.sync, "data/domains/conserved/")
+boundDir = nu.join(nu.sync, "data/domains/boundaries/")
 tmpl = "{0}-{1}-{2}kb.bed"
 windows = [100, 200, 400, 800, 1000]
+genome = "/home/jniles/data/dna/hg19/"
 
 def mutationTypePieChart():
     lesions = BedTool('tcga.bed')
@@ -58,14 +61,18 @@ def mutationTypePieChart():
     plt.close()
     return
 
-def distanceToMutations(cellType="IMR90", rep="R1"):
+def distanceToMutations(cellType="IMR90", rep="R1", conserved=False):
     """distance between domains and cancerous lesions"""
     lesions = BedTool('tcga.bed')
     saveDir = nu.chkdir(nu.join(nu.sync, "plots/domains/shuffled/"))
 
     data = []
     for win in windows:
-        fname = nu.join(inDir, tmpl.format(cellType, rep, win))
+        if conserved:
+            fname = nu.join(conservedDir,"{0}.{1}kb.conserved.bed".format(cellType, win))
+        else:
+            fname = nu.join(bedDir, tmpl.format(cellType, rep, win))
+
         print("Loading data from", fname)
         domains = BedTool(fname)
         
@@ -106,12 +113,25 @@ def distanceToMutations(cellType="IMR90", rep="R1"):
         ax.minorticks_on()
     
         # save stuff
-        fname = nu.join(saveDir, "window-{0}kb.png".format(win))
+        if conserved:
+            fname = nu.join(saveDir, "window-conserved-{0}kb.png".format(win))
+        else:
+            fname = nu.join(saveDir, "window-{0}kb.png".format(win))
+
         print("Saving to", fname)
         fig.savefig(fname, dpi=500)
         plt.close()
     return
 
+def boundariesToMutations(cellType="IMR90", window="100"):
+    """Plots the distance between conserved boundaries to mutations"""
+    fname = nu.join(boundDir, "{0}-{1}kb.boundaries.bed".format(cellType, window))
+    bounds = BedTool(fname)
+    lesions = BedTool('tcga.bed')
+    lesionsNearBounds = bounds.closest(lesions, d=True, g=genome)
+
+
+
 if __name__ == "__main__":
     #mutationTypePieChart()
-    distanceToMutations() 
+    distanceToMutations(conserved=True) 
