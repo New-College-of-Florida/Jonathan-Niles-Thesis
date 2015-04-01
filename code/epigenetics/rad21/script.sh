@@ -1,6 +1,36 @@
 #!/bin/bash
 
-FNAME="IMR90-200kb.boundaries"
+# check if element in an array
+containsElement () {
+    local e
+    x=1
+    for e in "${@:2}"; do [[ "$e" == "$1" ]] && x=0; done
+    echo $x
+}
+
+# make sure the user supplies a resolution
+if (( $# != 1 ))
+then
+    echo "Error! No resolution specified!"
+    echo "Usage: script.sh [RESOLUTION]"
+    exit 1
+fi
+
+# the resolution is argument 1
+RES=$1
+
+# array of possible resolutions
+RESOLUTIONS=("100kb" "200kb" "400kb" "800kb" "1000kb")
+
+f=$(containsElement $RES "${RESOLUTIONS[@]}")
+
+if (("$f" > 0))
+then
+    echo "Unsupported resolution."
+    exit 1
+fi
+
+FNAME="IMR90-$RES.peaks"
 FPATH="/home/jniles/thesis/sync/data/domains/boundaries/"
 HG19="/home/jniles/data/dna/hg19/hg19.chrom.sizes"
 WORKING="working/"
@@ -19,13 +49,13 @@ bedtools makewindows \
          -i srcwinnum \
 | sort -k1,1 -k2,2n \
 | tr "_" "\t" \
-> $WORKING$FNAME.plusminus.500kb.10bp.windows.bed
+> $WORKING$FNAME.plusminus.500kb.100bp.windows.bed
 
 # we now have our base windows, time to map the dna binding protein
 
-BASE=$WORKING$FNAME.plusminus.500kb.10bp.windows.bed
-TF="/home/jniles/data/IMR90/epi/rad21/GSM935624_hg19_wgEncodeSydhTfbsImr90Rad21IggrabSig.bedg"
+BASE=$WORKING$FNAME.plusminus.500kb.100bp.windows.bed
 TFNAME="rad21"
+TF="/home/jniles/data/IMR90/epi/$TFNAME/GSM935624_hg19_wgEncodeSydhTfbsImr90Rad21IggrabSig.bedg"
 
 # -c 4 -o mean: get the mean of the coverage
 # -null 0: if no overlap with bigwig, set to zero
@@ -46,4 +76,4 @@ sort -t$'\t' -k5,5n $WORKING$TFNAME.window.coverage.bedg \
            -g 5 \
            -c 6 \
            -o sum \
-> $TFNAME.window.counts.txt
+> $TFNAME.$RES.window.counts.txt

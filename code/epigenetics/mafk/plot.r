@@ -1,6 +1,6 @@
 # set the resolution
 res <- '200kb'
-tf <- 'rad21'
+tf <- 'mafk'
 
 table <- paste(tf, res, 'window.counts.txt', sep='.')
 cat("Reading file: ", table, "\n")

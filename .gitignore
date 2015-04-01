@@ -3,6 +3,7 @@
 *.npy
 *.gz
 *.npy
+*.txt
 
 # ignore sync directory
 sync/*

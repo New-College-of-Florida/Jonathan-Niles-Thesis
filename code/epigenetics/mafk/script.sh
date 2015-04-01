@@ -54,8 +54,8 @@ bedtools makewindows \
 # we now have our base windows, time to map the dna binding protein
 
 BASE=$WORKING$FNAME.plusminus.500kb.100bp.windows.bed
-TF="/home/jniles/data/IMR90/epi/ctcf/GSM935404_hg19_wgEncodeSydhTfbsImr90CtcfbIggrabSig.bedg"
-TFNAME="ctcf"
+TF="/home/jniles/data/IMR90/epi/mafk/GSM935403_hg19_wgEncodeSydhTfbsImr90MafkIggrabSig.bedg"
+TFNAME="mafk"
 
 # -c 4 -o mean: get the mean of the coverage
 # -null 0: if no overlap with bigwig, set to zero
