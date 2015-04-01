@@ -13,7 +13,7 @@ from hiclib.binnedData import binnedData
 
 # Constants
 genome = "/home/jniles/data/dna/hg19"
-resolutions = ["1000k", "500k", "200k"]
+resolutions = ["2000k", "1000k", "500k", "200k"]
 gpath = "/home/jniles/data/{0}/{1}/{0}-{2}-HindIII-{3}.hm"
 
 def plotCorrelationsByResolution():
@@ -65,13 +65,17 @@ def plotCorrelationsByResolution():
     ax.plot(x, correctedCorrelations, "r-o", label="corrected")
     ax.grid()
    
-    ax.xlim(0, N)
-    ax.set_xlabel("Replicates")
+    ax.set_xlim(0, N)
+    ax.set_xticks(x)
+    ax.set_xticklabels(resolutions, rotation=45)
+    ax.set_xlabel("Resolutions")
     ax.set_ylabel("Spearman's Correlation")
 
-    outFig = nu.join(nu.sync, "plots/heatmaps/correlations.png")
+    ax.legend(loc='best')
+
+    outFig = nu.join(nu.sync, "heatmaps/correlations.png")
     print("Saving figure to", outFig)
-    fig.savefig(outFig, dpi=700)
+    fig.savefig(outFig, dpi=450)
     return
 
 if __name__ == "__main__":

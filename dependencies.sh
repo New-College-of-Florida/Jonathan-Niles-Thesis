@@ -15,3 +15,6 @@ pip install https://bitbucket.org/mirnylab/hiclib/get/tip.tar.gz
 pip install https://bitbucket.org/mirnylab/mirnylib/get/tip.tar.gz
 pip install bx-python
 pip install pybedtools
+
+# NOTE:
+# You must run the following script root privileges (SUDO).

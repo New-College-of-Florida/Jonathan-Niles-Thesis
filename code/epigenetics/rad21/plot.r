@@ -1,11 +1,12 @@
 
-# read in ctcf binding from computed bed
-ctcf <- read.table('ctcf.window.counts.txt')
 
-postscript('/home/jniles/thesis/sync/plots/epigenetics/ctcf.ps')
+# read in ctcf binding from computed bed
+ctcf <- read.table('rad21.window.counts.txt')
+
+postscript('/home/jniles/thesis/sync/plots/epigenetics/rad21.ps')
 
 # plot ctcf binding in red markers
-plot(ctcf[,1], ctcf[,2], col='darkred',xaxt="n", xlab="Distance from Boundary (bp)", ylab="Depth")
+plot(ctcf[,1], ctcf[,2], col='darkred',xaxt = "n",xlab="Distance from Boundary (bp)", ylab="Depth")
 
 # adjust labels based on distance to domain boundary
 # recall that the window size is 100 base pairs

@@ -1,0 +1,19 @@
+100_TotalReads:   398642708
+	150_ReadsWithoutUnusedChromosomes:   398642708
+		152_removedUnusedChromosomes:   0
+200_totalDSReads:   250683384
+		201_DS+SS:   398642708
+		202_SSReadsRemoved:   147959324
+	210_sameFragmentReadsRemoved:   40420464
+		212_Self-Circles:   3695532
+		214_DandlingEnds:   36281032
+		216_error:   443900
+	220_extraDandlingEndsRemoved:   3933410
+300_ValidPairs:   206329510
+	310_startNearRsiteRemoved:   7799656
+	320_duplicatesRemoved:   36776210
+	340_removedLargeSmallFragments:   513676
+	350_removedFromExtremeFragments:   3861046
+400_readsAfterFiltering:   157378922
+		401_cisReads:   77707934
+		402_transReads:   79670988
