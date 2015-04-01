@@ -64,14 +64,17 @@ def plotCorrelationsByResolution():
     ax.plot(x, rawCorrelations, "y-o", label="raw")
     ax.plot(x, correctedCorrelations, "r-o", label="corrected")
     ax.grid()
+    ax.minorticks_on()
    
     ax.set_xlim(0, N)
+    ax.set_lim(0,1)
     ax.set_xticks(x)
     ax.set_xticklabels(resolutions, rotation=45)
     ax.set_xlabel("Resolutions")
     ax.set_ylabel("Spearman's Correlation")
+    ax.set_title("hESC Replicate Correlations")
 
-    ax.legend(loc='best')
+    ax.legend(loc='best', fancybox=True)
 
     outFig = nu.join(nu.sync, "heatmaps/correlations.png")
     print("Saving figure to", outFig)

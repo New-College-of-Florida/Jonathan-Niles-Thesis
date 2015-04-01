@@ -1,34 +1,41 @@
-# set the resolution
-res <- '200kb'
-tf <- 'rad21'
+# Plots the TF binding at different windows of resolution
+resolutions <- c("100kb", "200kb", "400kb", "800kb", "1000kb")
+TF <- 'rad21'
 
-table <- paste(tf, res, 'window.counts.txt', sep='.')
-cat("Reading file: ", table, "\n")
+for (i in 1:length(resolutions)) {
+    res <- resolutions[i]
 
-# read in ctcf binding from computed bed
-ctcf <- read.table(table)
+    # get proper file name
+    table <- paste(TF, res, 'window.counts.txt', sep='.')
+    cat("Reading file: ", table, "\n")
 
-fname <- paste('/home/jniles/thesis/sync/plots/epigenetics/', tf, '.',  res, '.ps', sep='')
-cat("Saving to file: ", fname, "\n")
+    # read in data binding from computed bed
+    data <- read.table(table)
 
-postscript(fname)
+    fname <- paste('/home/jniles/thesis/sync/plots/epigenetics/', TF, '.',  res, '.ps', sep='')
+    cat("Saving to file: ", fname, "\n")
 
-# plot ctcf binding in red markers
-plot(ctcf[,1], ctcf[,2], col='darkred',xaxt="n", xlab="Distance from Boundary (bp)", ylab="Depth", lty=3)
+    postscript(fname)
 
-# adjust labels based on distance to domain boundary
-# recall that the window size is 100 base pairs
-axis(1, at=seq(0,5000,500), labels=seq(-500000,500000,100000))
+    # plot data binding in red markers
+    z <- lowess(data[,1], data[,2])
+    plot(data[,1], data[,2], xaxt="n", xlab="Distance from Boundary", ylab="Depth")
+    lines(z, type='l', col='darkred', lwd=5)
 
-# line at domain boundary
-abline(v = 2500, col = "gray60", lwd=3, lty=3)
+    # adjust labels based on distance to domain boundary
+    # recall that the window size is 100 base pairs
+    axis(1, at=seq(0,10000,1000), labels=paste(seq(-500,500,100), "kb", sep=""))
 
-plabel <- paste(toupper(tf), 'Binding', sep=' ')
+    # line at domain boundary
+    abline(v = 5000, col = "gray60", lwd=3, lty=3)
 
-legend('topleft',
-        c(plabel),
-        lty=1,
-        col=c('darkred'),
-        bty='n')
+    plabel <- paste(toupper(TF), 'Binding', sep=' ')
 
-dev.off()
+    legend('topleft',
+            c(plabel),
+            lty=1,
+            col=c('darkred'),
+            bty='n')
+
+    dev.off()
+}
