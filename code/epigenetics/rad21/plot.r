@@ -18,7 +18,7 @@ for (i in 1:length(resolutions)) {
     postscript(fname)
 
     # plot data binding in red markers
-    z <- lowess(data[,1], data[,2])
+    z <- lowess(data[,1], data[,2], f=1/10)
     plot(data[,1], data[,2], xaxt="n", xlab="Distance from Boundary", ylab="Depth")
     lines(z, type='l', col='darkred', lwd=5)
 
