@@ -18,7 +18,7 @@ fi
 
 # the resolution is argument 1
 RES=$1
-TYPE="boundaries"
+TYPE="peaks"
 
 # array of possible resolutions
 RESOLUTIONS=("100kb" "200kb" "400kb" "800kb" "1000kb")

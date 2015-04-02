@@ -18,6 +18,7 @@ fi
 
 # the resolution is argument 1
 RES=$1
+TYPE="peaks"
 
 # array of possible resolutions
 RESOLUTIONS=("100kb" "200kb" "400kb" "800kb" "1000kb")
@@ -30,7 +31,7 @@ then
     exit 1
 fi
 
-FNAME="IMR90-$RES.peaks"
+FNAME="IMR90-$RES.$TYPE"
 FPATH="/home/jniles/thesis/sync/data/domains/boundaries/"
 HG19="/home/jniles/data/dna/hg19/hg19.chrom.sizes"
 WORKING="working/"
@@ -54,8 +55,8 @@ bedtools makewindows \
 # we now have our base windows, time to map the dna binding protein
 
 BASE=$WORKING$FNAME.plusminus.500kb.100bp.windows.bed
-TF="/home/jniles/data/IMR90/epi/mafk/GSM935403_hg19_wgEncodeSydhTfbsImr90MafkIggrabSig.bedg"
 TFNAME="mafk"
+TF="/home/jniles/data/IMR90/epi/$TFNAME/GSM935403_hg19_wgEncodeSydhTfbsImr90MafkIggrabSig.bedg"
 
 # -c 4 -o mean: get the mean of the coverage
 # -null 0: if no overlap with bigwig, set to zero
@@ -65,15 +66,15 @@ bedtools map \
          -c 4 \
          -o mean \
          -null 0 \
-> $WORKING$TFNAME.window.coverage.bedg
+> $WORKING$TFNAME.$TYPE.window.coverage.bedg
 
 # sort by the window number
-# -t$'\t' to specify that TABS should 
+# -t$'\t' to specify that TABS should
 # be used as the delimiter
-sort -t$'\t' -k5,5n $WORKING$TFNAME.window.coverage.bedg \
+sort -t$'\t' -k5,5n $WORKING$TFNAME.$TYPE.window.coverage.bedg \
 | bedtools groupby \
            -i - \
            -g 5 \
            -c 6 \
            -o sum \
-> $TFNAME.$RES.window.counts.txt
+> $TFNAME.$RES.$TYPE.window.counts.txt
