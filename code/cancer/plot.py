@@ -75,7 +75,7 @@ def distanceToMutations(cellType="IMR90", rep="R1", conserved=False):
 
         print("Loading data from", fname)
         domains = BedTool(fname)
-        
+
         # mutations in the domain
         lesionsInDomains = lesions.intersect(domains)
 
@@ -88,11 +88,15 @@ def distanceToMutations(cellType="IMR90", rep="R1", conserved=False):
         # plot distribution
         fig, ax = plt.subplots()
 
-        plt.suptitle("{0} {1}".format(cellType, rep))
+        if conserved:
+            plt.suptitle("{0}".format(cellType))
+        else:
+            plt.suptitle("{0} {1}".format(cellType, rep))
+
         ax.set_title("Resampled Null Distribution {0}kb".format(win))
         ax.set_xlabel("Number of Lesions in Domains")
         ax.set_ylabel("Frequency")
-    
+
         print("Plotting histogram for", win, "kb")
         n, bins, patches = ax.hist(distribution, bins=25, histtype="step",
                 color="b", normed=True, label="Shuffled Domains")
@@ -102,16 +106,18 @@ def distanceToMutations(cellType="IMR90", rep="R1", conserved=False):
         ndist = mlab.normpdf(bins, mean, stddev)
         text = "N($\mu={0:0.2f}$, $\sigma={1:0.2f}$)".format(mean, stddev)
         ax.plot(bins, ndist, "r--", label=text)
-        
+
         # plot the actual mean
         v = len(lesionsInDomains)
         ax.axvline(v, color="k", label="Observed Number")
         pValue = 1 - stats.norm(mean, stddev).cdf(v)
         pText = "$p$-value = {0:0.03f}".format(pValue)
 
+        m = np.max(ax.get_ylim())
+        ax.set_ylim(0, m+(m*0.1))
         ax.legend(loc='best', title=pText, fancybox=True)
         ax.minorticks_on()
-    
+
         # save stuff
         if conserved:
             fname = nu.join(saveDir, "window-conserved-{0}kb.png".format(win))
@@ -130,8 +136,6 @@ def boundariesToMutations(cellType="IMR90", window="100"):
     lesions = BedTool('tcga.bed')
     lesionsNearBounds = bounds.closest(lesions, d=True, g=genome)
 
-
-
 if __name__ == "__main__":
     #mutationTypePieChart()
-    distanceToMutations(conserved=True) 
+    distanceToMutations(conserved=True)

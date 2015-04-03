@@ -26,15 +26,15 @@ import numpy as np
 import nutils as nu
 from matplotlib import mlab
 import matplotlib.pyplot as plt
-from matplotlib.mlab import csv2rec
 from scipy.stats import spearmanr
+from matplotlib.mlab import csv2rec
+from hiclib.binnedData import binnedData
 
 tmpl = nu.join(nu.sync, "data/components/{0}-{1}-{2}.eigenvectors")
 volcanoDir = nu.chkdir(nu.join(nu.sync, "plots/genes/"))
 outDir = nu.chkdir(nu.join(nu.sync, "plots/genes/compartment/"))
 histDir = nu.chkdir(nu.join(nu.sync, "plots/genes/histograms/"))
-resMap = {"200k":200000, "1000k":1000000}
-squash = lambda arr: np.array(list(itertools.chain(*arr)))
+genome = "/home/jniles/data/dna/hg19/"
 
 def loadRawArray():
     """loads raw expression array"""
@@ -46,7 +46,11 @@ def probesByCompartment(cellType, rep, res, n=0):
     data = loadRawArray()
     components = np.loadtxt(tmpl.format(cellType, rep, res))
     pc = components[n] # load the nth component
-    
+
+    # make the binned data filter
+    nres = nu.strToResolution(res)
+    bd = binnedData(nres, genome=genome)
+
     # create columns for quick iteration
     imr90Cols = ["imr90_{0}".format(i) for i in xrange(1,3)]
     hescCols = ["hesc_{0}".format(i) for i in xrange(1,3)]
@@ -54,13 +58,21 @@ def probesByCompartment(cellType, rep, res, n=0):
     hescMeans= np.array([np.mean([np.log(i),np.log(j)]) for i,j in data[hescCols]])
     delta = imr90Means - hescMeans
 
-    # get the numerical resolution
-    nres = resMap[res]
-    starts = data['start'] / nres
-    ends = (data['end'] / nres) + 1
+    compartments = []
+    for row in data:
+        start = row['start'] / nres
+        end = (row['end'] / nres) + 1
 
-    compartments = np.array([np.mean(pc[start:end]) for start, end in zip(starts, ends)])
-    
+        # strip off all but the numbers/X
+        chromosome = row['chrom'].strip()[3:]
+        if chromosome == 'X':
+            chrom = 23
+        else:
+            chrom = int(chromosome)
+
+        sliced = pc[bd.chromosomeIndex == chrom]
+        compartments.append(np.mean(sliced[start:end]))
+
     fig, ax = plt.subplots()
     ax.plot(compartments, delta, 'og', alpha=0.3, markersize=0.3)
 
@@ -119,11 +131,11 @@ def cellTypeExpressionHistogram(cellType):
     plt.close()
     return
 
-def expressionChangeHistogram(): 
+def expressionChangeHistogram():
     """plots the gene expression changes between cell types"""
     # we are going to do the hESC experiment plots first
     data = loadRawArray()
-    
+
     # create columns for quick iteration
     imr90Cols = ["imr90_{0}".format(i) for i in xrange(1,3)]
     hescCols = ["hesc_{0}".format(i) for i in xrange(1,3)]
@@ -158,21 +170,22 @@ def probeChangesByCompartmentChanges(res="200k", n=1):
     icomponents = np.loadtxt(tmpl.format("IMR90", "R1", res))
     hcomponents = np.loadtxt(tmpl.format("hESC", "R1", res))
 
+    # make the binned data filter
+    nres = nu.strToResolution(res)
+    bd = binnedData(nres, genome=genome)
+
     # create columns for quick iteration
     iCols = ["imr90_{0}".format(i) for i in xrange(1,3)]
     hCols = ["hesc_{0}".format(i) for i in xrange(1,3)]
     iMeans = np.array([np.mean([np.log(i),np.log(j)]) for i,j in data[iCols]])
     hMeans= np.array([np.mean([np.log(i),np.log(j)]) for i,j in data[hCols]])
     delta = iMeans - hMeans
+
     colorString = 'rgbyk'
     colors = colorString[:n]
 
-    # get the numerical resolution
-    nres = resMap[res]
-    starts = data['start'] / nres
-    ends = (data['end'] / nres) + 1
 
-    fig, ax = plt.subplots() 
+    fig, ax = plt.subplots()
 
     for p, color in enumerate(colors):
 
@@ -181,7 +194,21 @@ def probeChangesByCompartmentChanges(res="200k", n=1):
         ipc = icomponents[p]
         hpc = hcomponents[p]
         pc = ipc - hpc
-        compartments = np.array([np.mean(pc[i:j]) for i, j in zip(starts, ends)])
+
+        compartments = []
+        for row in data:
+            start = row['start'] / nres
+            end = (row['end'] / nres) + 1
+
+            # strip off all but the numbers/X
+            chromosome = row['chrom'].strip()[3:]
+            if chromosome == 'X':
+                chrom = 23
+            else:
+                chrom = int(chromosome)
+
+            sliced = pc[bd.chromosomeIndex == chrom]
+            compartments.append(np.mean(sliced[start:end]))
 
         # plot compartment change versus expression change
         ax.plot(delta, compartments, 'o', alpha=0.25, color=color,
@@ -223,5 +250,5 @@ def geneExpressionByLesions():
     return
 
 if __name__ == "__main__":
-    plotAll()
+    #plotAll()
     probeChangesByCompartmentChanges()
