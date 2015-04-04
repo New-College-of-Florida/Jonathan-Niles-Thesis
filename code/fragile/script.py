@@ -69,6 +69,9 @@ def plotCfsVsComponent(cfs, pc, res, spath):
 
     plt.title("Compartment Character in Common Fragile Sites")
     plt.xlabel("Compartment Character")
+    plt.ylabel("Frequency")
+    xl = np.max(np.abs(ax.get_xlim()))
+    ax.set_xlim(-xl, xl)
 
     outFig = nu.join(outDir, "{0}-histogram.png".format(spath))
     print("Saving to", outFig)
@@ -91,4 +94,3 @@ def main(res="200k", n=0):
 
 if __name__ == "__main__":
     main()
-

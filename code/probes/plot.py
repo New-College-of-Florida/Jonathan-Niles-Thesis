@@ -94,15 +94,14 @@ def calculateScaling(cellType, loader):
     return scaling
 
 def plotScaling(cellType, dataDict, percent=False):
-    """
-    Plots the scaling plot for each chromosome by replicate
-    """
+    """Plots the scaling plot for each chromosome by replicate"""
     for rep in dataDict.keys():
         r = dataDict[rep]
         fig, ax = plt.subplots()
+        colorRange = np.linspace(0,1, len(r.keys()))
 
         # loop through chromosomes, plotting on the same plot
-        for chrom in r.keys():
+        for i, chrom in enumerate(r.keys()):
             contacts = r[chrom]
             length = len(contacts)
 
@@ -114,19 +113,22 @@ def plotScaling(cellType, dataDict, percent=False):
                 x = np.linspace(0, 1, length)
 
             # plot on the same axis
-            if chrom + 1 == 23:
+            if chrom == 22:
                 label = "X"
             else:
                 label = chrom + 1
-            ax.plot(x, norm, label="{0}".format(label))
+
+            ax.plot(x, norm, label="{0}".format(label),
+                    color=plt.cm.gnuplot(colorRange[i]))
 
         # labels
         ax.set_title('{0} {1} Contact Scaling'.format(cellType, rep))
 
         if percent:
             ax.set_xlabel('Percentage of Chromosome')
-        else: 
+        else:
             ax.set_xlabel('Distance (Mb)')
+
         ax.set_ylabel('Percentage of Interations')
         ax.set_ylim(0, 1.1)
         ax.grid()

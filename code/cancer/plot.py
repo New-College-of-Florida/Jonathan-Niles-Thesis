@@ -131,10 +131,11 @@ def distanceToMutations(cellType="IMR90", rep="R1", conserved=False):
 
 def boundariesToMutations(cellType="IMR90", window="100"):
     """Plots the distance between conserved boundaries to mutations"""
-    fname = nu.join(boundDir, "{0}-{1}kb.boundaries.bed".format(cellType, window))
+    fname = nu.join(boundDir, "{0}-{1}kb.unique.boundaries.bed".format(cellType, win))
     bounds = BedTool(fname)
-    lesions = BedTool('tcga.bed')
+    lesions = BedTool('tcga.sorted.bed')
     lesionsNearBounds = bounds.closest(lesions, d=True, g=genome)
+    return
 
 if __name__ == "__main__":
     #mutationTypePieChart()
