@@ -61,7 +61,7 @@ def mutationTypePieChart():
     plt.close()
     return
 
-def distanceToMutations(cellType="IMR90", rep="R1", conserved=False):
+def mutationsInDomains(cellType="IMR90", rep="R1", conserved=False):
     """distance between domains and cancerous lesions"""
     lesions = BedTool('tcga.bed')
     saveDir = nu.chkdir(nu.join(nu.sync, "plots/domains/shuffled/"))
@@ -129,14 +129,74 @@ def distanceToMutations(cellType="IMR90", rep="R1", conserved=False):
         plt.close()
     return
 
+def mutationsAtBoundaries(cellType="IMR90", win=100, size=5000, n=25):
+    """resampling the regions around domain boundaries"""
+    fname = nu.join(boundDir, "{0}-{1}kb.unique.boundaries.bed".format(cellType, win))
+    saveDir = nu.chkdir(nu.join(nu.sync, "plots/domains/shuffled/"))
+
+    # create slop region
+    bounds = BedTool(fname).slop(g=genome, b=size)
+    lesions = BedTool('tcga.sorted.bed')
+
+    overlap = len(bounds.intersect(lesions))
+
+    # resampling
+    print("Resampling", n, "times")
+    results = bounds.randomintersection(lesions, iterations=n,
+            shuffle_kwargs={'chrom': True, 'genome' : "hg19"}, debug=False)
+
+    # convert generator to list
+    distribution = list(results)
+    print("Finished resampling. Plotting...")
+    print("Length", len(distribution))
+
+    # plot distribution
+    fig, ax = plt.subplots()
+    plt.suptitle("{0} {1}".format(cellType))
+
+    ax.set_title("Resampling {0}kb Window Sizes".format(win))
+    ax.set_xlabel("Number of Lesions in {0}kb of Boundaries".format(size/1000))
+    ax.set_ylabel("Frequency")
+
+    print("Plotting histogram for", win, "kb")
+    n, bins, patches = ax.hist(distribution, bins=50, histtype="step",
+            color="b", normed=True, label="Shuffled Domains")
+
+    # calculating normal distribution, p value
+    mean, stddev = np.mean(distribution), np.std(distribution)
+    ndist = mlab.normpdf(bins, mean, stddev)
+    text = "N($\mu={0:0.2f}$, $\sigma={1:0.2f}$)".format(mean, stddev)
+    ax.plot(bins, ndist, "r--", label=text)
+
+    # plot the actual mean
+    ax.axvline(overlap, color="k", label="Observed Number")
+    pValue = 1 - stats.norm(mean, stddev).cdf(observed)
+    pText = "$p$-value = {0:0.03f}".format(pValue)
+
+    # formatting
+    m = np.max(ax.get_ylim())
+    ax.set_ylim(0, m+(m*0.1))
+    ax.legend(loc='best', title=pText, fancybox=True)
+    ax.minorticks_on()
+
+    # save
+    fname = nu.join(saveDir, "{0}-{1}kb.png".format(cellType, win))
+    print("Saving to", fname)
+    fig.savefig(fname, dpi=500)
+    plt.close()
+    return
+
+"""
 def boundariesToMutations(cellType="IMR90", window="100"):
-    """Plots the distance between conserved boundaries to mutations"""
+    ""Plots the distance between conserved boundaries to mutations""
     fname = nu.join(boundDir, "{0}-{1}kb.unique.boundaries.bed".format(cellType, win))
     bounds = BedTool(fname)
     lesions = BedTool('tcga.sorted.bed')
     lesionsNearBounds = bounds.closest(lesions, d=True, g=genome)
     return
+"""
 
 if __name__ == "__main__":
     #mutationTypePieChart()
-    distanceToMutations(conserved=True)
+    #mutationsInDomains(conserved=True)
+    mutationsAtBoundaries(size=5000, n=1000)
