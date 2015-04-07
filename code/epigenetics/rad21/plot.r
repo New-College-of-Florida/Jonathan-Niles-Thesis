@@ -25,7 +25,7 @@ for (x in 1:length(types)) {
 
         # plot data binding in red markers
         z <- lowess(data[,1], data[,2], f=1/12)
-        plot(data[,1], data[,2], xaxt="n", xlab="Distance from Boundary", ylab="Depth")
+        plot(data[,1], data[,2], xaxt="n", xlab="Distance from Boundary", ylab="Depth", col.lab="white")
         lines(z, type='l', col='darkred', lwd=5)
 
         title(main=paste(toupper(TF), capitalize(type), sep=" "))
