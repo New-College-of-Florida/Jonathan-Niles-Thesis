@@ -156,6 +156,9 @@ def expressionChangeHistogram():
     ax.set_title("hESC/IMR90 Gene Expression Changes")
     ax.set_xlabel('Expression Log2 Fold Change')
     ax.set_ylabel('Number of Genes')
+    
+    m = np.max(np.abs(ax.get_xlim()))
+    ax.set_xlim((-m, m))
 
     fname = nu.join(histDir, 'both.png')
     print("Saving to", fname)
@@ -251,4 +254,4 @@ def geneExpressionByLesions():
 
 if __name__ == "__main__":
     plotAll()
-    probeChangesByCompartmentChanges()
+    #probeChangesByCompartmentChanges()
