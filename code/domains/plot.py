@@ -68,9 +68,10 @@ def getMeans(cellType, window):
     # sort the (text-labeled) chromosomes
     keys = sorted(groups.keys(), cmp=lambda x,y: cmp(int(x[3:]), int(y[3:]))) 
 
+    n = len(datasets)
     means = map(lambda k: np.mean(groups[k]), keys)
-    stddev = map(lambda k: np.std(groups[k]), keys)
-    return (means, stddev, keys)
+    stderr = map(lambda k: np.std(groups[k]) / np.sqrt(n), keys)
+    return (means, stderr , keys)
 
 def autolabel(axis, rects):
     # attach some text labels
@@ -79,30 +80,41 @@ def autolabel(axis, rects):
         axis.text(rect.get_x()+rect.get_width()/2., 1.05*height, '%d'%int(height),
                 ha='center', va='bottom', size='5')
 
-def domainbar(cellType):
+def domainbar(cellType, labelBar=False):
     """
     Draws a bar graph of the average domain size between technical replicates
     with error bars.
     """
-    sizes = {}
+    sizes = []
     for win in windows:
-        sizes[win] = getMeans(cellType, win)
+        sizes.append(getMeans(cellType, win))
 
-    width = 0.175
+    # width of the bars and number of groups
+    width = 0.15
+    ind = np.arange(23)
 
     fig, ax = plt.subplots()
     ax.set_title("{0} Domains by Chromosome".format(cellType))
     ax.set_xlabel("Chromosomes")
     ax.set_ylabel("Domains")
 
-    # this is the most pythonic-code ever
-    for i, (size, (means, stddev, keys)) in enumerate(sizes.items()):
-        ind = np.arange(len(keys)) 
-        rects = ax.bar(ind+i*width, means, width, yerr=stddev, label="{0}kb".format(size))
-        autolabel(ax, rects)
+    # get colors from colormap
+    e = plt.cm.gist_earth
+    colors = map(e, np.linspace(0,0.9, len(sizes)))
 
-    ax.legend()
-    ax.set_xticklabels(keys)
+    # this is the most pythonic-code ever
+    for i in xrange(len(sizes)):
+        means, stderr, keys = sizes[i]
+        rects = ax.bar(ind+(i*width), means, width, yerr=stderr,
+                color=colors[i], label="{0}kb".format(windows[i]))
+        if labelBar:
+            autolabel(ax, rects)
+
+    xlabels = map(lambda x: "chr{0}".format(x) if x != 23 else "chrX", ind+1)
+
+    ax.legend(loc="best")
+    ax.set_xticks(ind + (len(sizes)*width / 2.))
+    ax.set_xticklabels(xlabels, rotation=45)
     plt.tight_layout()
     
     # save figure
@@ -115,6 +127,7 @@ def domainbar(cellType):
 def domainSizeByWindowSize():
     """plots domain sizes as they scale for each cell type/replicate
     by the window size"""
+
  
     data = np.arange(1,len(windows)+1)
     for j, win in enumerate(windows):
@@ -149,5 +162,5 @@ def plotAllBars():
         domainbar(cellType)
 
 if __name__ == "__main__":
-    domainSizeByWindowSize()
+    #domainSizeByWindowSize()
     plotAllBars()

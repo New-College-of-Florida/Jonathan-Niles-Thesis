@@ -38,7 +38,6 @@ btmpl = "{0}-{1}-{2}kb.bed"
 dtmpl = "{0}-{1}-{2}kb.npy"
 columns = ['chrom', 'start', 'end', 'value', 'sign', 'length', 'uuid']
 windows = [100, 200, 400, 800, 1000]
-#windows = [200, 400, 800, 1000]
 
 # flattens arrays of arrays to a single array
 squash = lambda arr: np.array(list(itertools.chain(*arr)))
@@ -87,7 +86,7 @@ def plotDomainSizeHistogram(cellType, replicate, windowSize, bySign=False):
     ax.set_xlim((0, x2))
     ax.set_ylim((0, 1000)) # limit to 1000
 
-    ax.set_title('{0} {1} {2}kb Windows @ {0}'.format(cellType, replicate, windowSize, "10kb"))
+    ax.set_title('{0} {1} {2}kb Windows @ {3}'.format(cellType, replicate, windowSize, "10kb"))
     ax.set_xlabel('Domain Size (kb)')
     ax.set_ylabel('# of Domains')
 
@@ -112,7 +111,7 @@ def plotDirectionalityIndex(cellType, replicate, windowSize, norm=False):
     TODO: Think about making the x labels based on chromosome rather than on position
     """
 
-    print("Plotting directionality index for %s %s" %(cellType, replicate))
+    print("Plotting directionality index for", cellType, replicate)
 
     # load in the data and flatten it into a single array
     data = squash(loadDI(cellType, replicate, windowSize))
@@ -122,20 +121,25 @@ def plotDirectionalityIndex(cellType, replicate, windowSize, norm=False):
     if norm:
         data = data / np.max(np.abs(data))
 
-    fig, ax = plt.subplots(figsize=(18, 4))
+    fig, ax = plt.subplots(figsize=(18, 2))
 
     x = np.arange(len(data)) * 10
     ax.plot(x, data, 'k-', linewidth=0.5)
 
-    plt.xlabel('hg19 (10kb)')
+    plt.xlabel('Human Genome (Mb)')
     plt.ylabel('DI')
     plt.title('{0} {1} Directionality Index @ {2}kb'.format(cellType, replicate, windowSize))
 
     # format the axes nicely
     ax.minorticks_on()
-    ylimit = np.max(np.abs(ax.get_ylim()))
-    ax.set_ylim((-ylimit, ylimit)) # make y axis symmetric
+
+    m = np.max(np.abs(data))
+    ax.set_ylim((-(m + 0.1*m), (m + 0.1*m))) # make y axis symmetric
     ax.set_xlim((0, length))
+    ax.set_yticks([-m, m])
+    ax.set_yticklabels(["-", "+"])
+    xlabs = np.array(ax.get_xticks())
+    ax.set_xticklabels(xlabs / 100)
 
     # make sure everything is visible
     plt.tight_layout()
@@ -159,7 +163,7 @@ def plotOverlapHistogram():
     array = csv2rec('./hESC-20kb.bed', delimiter='\t', names=cols)
     distances = array['distance']
     ax.hist(distances, bins=50)
-    
+
     median = np.median(distances)
     label = 'Median: ~{0:.2f}bp'.format(median) # format to kb
     fig.text(0.75, 0.75, label, horizontalalignment='center', verticalalignment='center')
@@ -170,7 +174,8 @@ def plotOverlapHistogram():
     ax.set_xlabel("Distance (kb)")
     ax.set_xticklabels(ax.get_xticks() / 1000)
 
-    fig.savefig(dpi=750)
+    #fig.savefig(dpi=750)
+    plt.close()
     return
 
 # TODO
@@ -198,22 +203,16 @@ def plotDomainBoundaries(data, domains, chrom=0):
     plt.close()
     return
 
-def plotAll():
-    for win in windows:
-        for cellType in nu.datasets.keys():
-            for rep in nu.datasets[cellType]:
-                plotDomainSizeHistogram(cellType, rep, win, bySign=False)
-                plotDirectionalityIndex(cellType, rep, win, norm=True)
-
 def plotCorrelationsByWindowSize():
     """plots the mean and min correlations by window size"""
-    
-    dataDir = nu.join(nu.sync, "data/di/coor/")
+
+    print("Plotting correlations by Window Size")
+    dataDir = nu.join(nu.sync, "data/di/corr/")
     dpath = "{0}kb.window.npytxt"
     data = []
     labels = []
     for win in windows:
-        data.append(np.loadtxt(dpath.format(win)))
+        data.append(np.loadtxt(nu.join(dataDir, dpath.format(win))))
         labels.append("{0}kb".format(win))
 
     mins = map(np.min, data)
@@ -222,20 +221,32 @@ def plotCorrelationsByWindowSize():
     fig, ax = plt.subplots()
 
     x = np.arange(len(windows))
-    ax.plot(x, mins, color="g", label="min")
-    ax.plot(x, means, color="y", labee="mean")
-    
+    ax.plot(x, mins, "o-g", label="min")
+    ax.plot(x, means, "o-y", label="mean")
+
+    ax.set_xticks(x)
     ax.set_xticklabels(labels)
     ax.set_xlabel("Window Sizes")
-    ax.set_ylabel("$Spearman's \\rho$")
+    ax.set_ylabel("Spearman's $\\rho$")
     ax.set_title("DI Correlation by Window Size")
+    ax.set_ylim(0, 1)
+    ax.grid()
+
+    ax.legend(loc='best')
 
     outFig = nu.join(nu.sync, "plots/di/correlationsByWindow.png")
+    print("Saving figure to", outFig)
     fig.savefig(outFig, dpi=450)
     plt.close()
     return
 
+def plotAll():
+    for win in windows:
+        for cellType in nu.datasets.keys():
+            for rep in nu.datasets[cellType]:
+                plotDomainSizeHistogram(cellType, rep, win, bySign=False)
+                plotDirectionalityIndex(cellType, rep, win, norm=True)
+    plotCorrelationsByWindowSize()
 
 if __name__ == "__main__":
-    #plotAll()
-    plotCorrelationsByWindowSize()
+    plotAll()

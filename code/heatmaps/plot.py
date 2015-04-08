@@ -165,7 +165,7 @@ def plotGenomeHeatmap(cellType, replicate, resolution, red=False, src="raw"):
     # save the figure
     savePath = nu.chkdir(nu.join(outDir, "genome/{0}/".format(src)))
     outPng = nu.join(savePath, "{0}-{1}-{2}.png".format(cellType, replicate, resolution))
-    fig.savefig(outPng, dpi=650)
+    fig.savefig(outPng, dpi=850)
 
     # explicitly close the figure to conserve memory
     plt.close()
@@ -242,6 +242,6 @@ def plotCheckboardHeatmaps():
     return
 
 if __name__ == "__main__":
-    #plotAllHighResHeatmaps()
-    plotGenomeHeatmaps()
+    plotAllHighResHeatmaps()
+    #plotGenomeHeatmaps()
     #plotCheckboardHeatmaps()

@@ -28,9 +28,12 @@ from matplotlib import mlab
 from pybedtools import BedTool
 import matplotlib.pyplot as plt
 
-inDir = nu.join(nu.sync, "data/domains/bed/")
+bedDir = nu.join(nu.sync, "data/domains/bed/")
+conservedDir = nu.join(nu.sync, "data/domains/conserved/")
+boundDir = nu.join(nu.sync, "data/domains/boundaries/")
 tmpl = "{0}-{1}-{2}kb.bed"
 windows = [100, 200, 400, 800, 1000]
+genome = "/home/jniles/data/dna/hg19/"
 
 def mutationTypePieChart():
     lesions = BedTool('tcga.bed')
@@ -58,17 +61,21 @@ def mutationTypePieChart():
     plt.close()
     return
 
-def distanceToMutations(cellType="IMR90", rep="R1"):
+def mutationsInDomains(cellType="IMR90", rep="R1", conserved=False):
     """distance between domains and cancerous lesions"""
     lesions = BedTool('tcga.bed')
     saveDir = nu.chkdir(nu.join(nu.sync, "plots/domains/shuffled/"))
 
     data = []
     for win in windows:
-        fname = nu.join(inDir, tmpl.format(cellType, rep, win))
+        if conserved:
+            fname = nu.join(conservedDir,"{0}.{1}kb.conserved.bed".format(cellType, win))
+        else:
+            fname = nu.join(bedDir, tmpl.format(cellType, rep, win))
+
         print("Loading data from", fname)
         domains = BedTool(fname)
-        
+
         # mutations in the domain
         lesionsInDomains = lesions.intersect(domains)
 
@@ -81,11 +88,15 @@ def distanceToMutations(cellType="IMR90", rep="R1"):
         # plot distribution
         fig, ax = plt.subplots()
 
-        plt.suptitle("{0} {1}".format(cellType, rep))
+        if conserved:
+            plt.suptitle("{0}".format(cellType))
+        else:
+            plt.suptitle("{0} {1}".format(cellType, rep))
+
         ax.set_title("Resampled Null Distribution {0}kb".format(win))
         ax.set_xlabel("Number of Lesions in Domains")
         ax.set_ylabel("Frequency")
-    
+
         print("Plotting histogram for", win, "kb")
         n, bins, patches = ax.hist(distribution, bins=25, histtype="step",
                 color="b", normed=True, label="Shuffled Domains")
@@ -95,23 +106,90 @@ def distanceToMutations(cellType="IMR90", rep="R1"):
         ndist = mlab.normpdf(bins, mean, stddev)
         text = "N($\mu={0:0.2f}$, $\sigma={1:0.2f}$)".format(mean, stddev)
         ax.plot(bins, ndist, "r--", label=text)
-        
+
         # plot the actual mean
         v = len(lesionsInDomains)
         ax.axvline(v, color="k", label="Observed Number")
         pValue = 1 - stats.norm(mean, stddev).cdf(v)
         pText = "$p$-value = {0:0.03f}".format(pValue)
 
+        m = np.max(ax.get_ylim())
+        ax.set_ylim(0, m+(m*0.1))
         ax.legend(loc='best', title=pText, fancybox=True)
         ax.minorticks_on()
-    
+
         # save stuff
-        fname = nu.join(saveDir, "window-{0}kb.png".format(win))
+        if conserved:
+            fname = nu.join(saveDir, "window-conserved-{0}kb.png".format(win))
+        else:
+            fname = nu.join(saveDir, "window-{0}kb.png".format(win))
+
         print("Saving to", fname)
         fig.savefig(fname, dpi=500)
         plt.close()
     return
 
+def mutationsAtBoundaries(cellType="IMR90", size=5000, iterations=25):
+    """resampling the regions around domain boundaries"""
+    saveDir = nu.chkdir(nu.join(nu.sync, "plots/domains/shuffled/"))
+    lesions = BedTool('tcga.sorted.bed')
+
+    for win in windows:
+        fname = nu.join(boundDir, "{0}-{1}kb.unique.boundaries.bed".format(cellType, win))
+
+        # create slop region
+        bounds = BedTool(fname).slop(g=genome, b=size)
+
+        overlap = len(bounds.intersect(lesions))
+
+        # resampling
+        print("Resampling", iterations, "times for window", win)
+        results = bounds.randomintersection(lesions, iterations=iterations,
+                shuffle_kwargs={'chrom': True, 'genome' : "hg19"}, debug=False)
+
+        # convert generator to list
+        distribution = list(results)
+        print("Finished resampling. Plotting...")
+
+        # plot distribution
+        fig, ax = plt.subplots()
+        plt.suptitle("{0}".format(cellType))
+
+        ax.set_title("Resampling {0}kb Window Sizes".format(win))
+        ax.set_xlabel("Number of Lesions in {0}kb of Boundaries".format(size/1000))
+        ax.set_ylabel("Frequency")
+
+        print("Plotting histogram for", win, "kb")
+        n, bins, patches = ax.hist(distribution, bins=50, histtype="stepfilled",
+                color="g", normed=True, label="Shuffled Domains")
+        plt.setp(patches, 'facecolor', 'g', 'alpha', 0.75)
+
+        # calculating normal distribution, p value
+        mean, stddev = np.mean(distribution), np.std(distribution)
+        ndist = mlab.normpdf(bins, mean, stddev)
+        text = "N($\mu={0:0.2f}$, $\sigma={1:0.2f}$)".format(mean, stddev)
+        ax.plot(bins, ndist, "r--", label=text)
+
+        # plot the actual mean
+        ax.axvline(overlap, color="k", label="Observed Number")
+        pValue = 1 - stats.norm(mean, stddev).cdf(overlap)
+        pText = "$p$-value > {0:0.03f}".format(pValue)
+
+        # formatting
+        m = np.max(ndist)
+        ax.set_ylim(0, m + (m*0.2))
+        ax.legend(loc='best', title=pText, fancybox=True)
+        ax.minorticks_on()
+
+        # save
+        fname = nu.join(saveDir, "{0}.boundaries.{1}kb.windows.{2}kb.slop.png".format(cellType, win, size))
+        print("Saving to", fname)
+        fig.savefig(fname, dpi=500)
+        plt.close()
+
+    return
+
 if __name__ == "__main__":
     #mutationTypePieChart()
-    distanceToMutations() 
+    #mutationsInDomains(conserved=True)
+    mutationsAtBoundaries(size=10000, iterations=1000)

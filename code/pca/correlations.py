@@ -69,7 +69,7 @@ def betweenCellTypes(resolution, numComponents=1, saveCSV=True):
     """
     i90 = [np.loadtxt(tmpl.format("IMR90", v, resolution)) for v in nu.datasets["IMR90"]]
     h1 = [np.loadtxt(tmpl.format("hESC", v, resolution)) for v in nu.datasets["hESC"]]
-  
+
     mtx = np.ndarray((len(i90),len(h1)), dtype=tuple)
     for i, repI in enumerate(i90):
         for j, repH in enumerate(h1):
@@ -88,7 +88,7 @@ def betweenCellTypes(resolution, numComponents=1, saveCSV=True):
 def computeAllCellTypes():
     """runs betweenCellTypes() for each resolution computed"""
     for res in ["200k", "1000k"]:
-        print("Computing ", res)
+        print("Computing", res)
         betweenCellTypes(res)
     return
 
