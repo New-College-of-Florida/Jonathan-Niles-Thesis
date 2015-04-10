@@ -80,6 +80,11 @@ here, listed in order of generation.
         indexes and various bedtool comparisons to determine how well the
         domains are preseved.
 
+    - epigenetics/
+        epigenetics/ provides mapping scripts for bedtools and visualization
+        scripts in R.  Using biomarker bedgraphs, we align biomarkers to
+        windows around domain boundaries and plot the result.
+
     - cancer/
         cancer/ uses mutation data from the TCGA to analyse the spread of
         mutated genes compared to gene expression, domains, and compartment.
