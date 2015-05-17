@@ -1,0 +1,777 @@
+.
+├── annotations
+│   ├── cfs.csv
+│   ├── cytoband.bed
+│   └── fragilesites.csv
+├── cosmic
+├── directory.txt
+├── dna
+│   ├── hg19
+│   │   ├── chr10.fa
+│   │   ├── chr11.fa
+│   │   ├── chr12.fa
+│   │   ├── chr13.fa
+│   │   ├── chr14.fa
+│   │   ├── chr15.fa
+│   │   ├── chr16.fa
+│   │   ├── chr17.fa
+│   │   ├── chr18.fa
+│   │   ├── chr19.fa
+│   │   ├── chr1.fa
+│   │   ├── chr1.fa.pureseq
+│   │   ├── chr1.fa.seqlen
+│   │   ├── chr1.seqlen
+│   │   ├── chr20.fa
+│   │   ├── chr21.fa
+│   │   ├── chr22.fa
+│   │   ├── chr2.fa
+│   │   ├── chr3.fa
+│   │   ├── chr4.fa
+│   │   ├── chr5.fa
+│   │   ├── chr6.fa
+│   │   ├── chr7.fa
+│   │   ├── chr8.fa
+│   │   ├── chr9.fa
+│   │   ├── chrM.fa
+│   │   ├── chrX.fa
+│   │   ├── chrY.fa
+│   │   ├── gap.txt
+│   │   ├── hg19.2bit
+│   │   ├── hg19.chrom.sizes
+│   │   ├── hg19.fa
+│   │   ├── hg19.fa.pureseq
+│   │   ├── hg19.fa.seqlen
+│   │   └── joblib
+│   │       └── mirnylib
+│   │           └── genome
+│   │               └── run_func
+│   │                   ├── 06575f21f7c292a27069d05b9590085a
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   ├── output.pkl_01.npy
+│   │                   │   ├── output.pkl_02.npy
+│   │                   │   ├── output.pkl_03.npy
+│   │                   │   ├── output.pkl_04.npy
+│   │                   │   ├── output.pkl_05.npy
+│   │                   │   ├── output.pkl_06.npy
+│   │                   │   ├── output.pkl_07.npy
+│   │                   │   ├── output.pkl_08.npy
+│   │                   │   ├── output.pkl_09.npy
+│   │                   │   ├── output.pkl_10.npy
+│   │                   │   ├── output.pkl_11.npy
+│   │                   │   ├── output.pkl_12.npy
+│   │                   │   ├── output.pkl_13.npy
+│   │                   │   ├── output.pkl_14.npy
+│   │                   │   ├── output.pkl_15.npy
+│   │                   │   ├── output.pkl_16.npy
+│   │                   │   ├── output.pkl_17.npy
+│   │                   │   ├── output.pkl_18.npy
+│   │                   │   ├── output.pkl_19.npy
+│   │                   │   ├── output.pkl_20.npy
+│   │                   │   ├── output.pkl_21.npy
+│   │                   │   ├── output.pkl_22.npy
+│   │                   │   └── output.pkl_23.npy
+│   │                   ├── 0ff21bdb3112eaee1287a2b8271bc410
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   ├── output.pkl_01.npy
+│   │                   │   ├── output.pkl_02.npy
+│   │                   │   ├── output.pkl_03.npy
+│   │                   │   ├── output.pkl_04.npy
+│   │                   │   ├── output.pkl_05.npy
+│   │                   │   ├── output.pkl_06.npy
+│   │                   │   ├── output.pkl_07.npy
+│   │                   │   ├── output.pkl_08.npy
+│   │                   │   ├── output.pkl_09.npy
+│   │                   │   ├── output.pkl_10.npy
+│   │                   │   ├── output.pkl_11.npy
+│   │                   │   ├── output.pkl_12.npy
+│   │                   │   ├── output.pkl_13.npy
+│   │                   │   ├── output.pkl_14.npy
+│   │                   │   ├── output.pkl_15.npy
+│   │                   │   ├── output.pkl_16.npy
+│   │                   │   ├── output.pkl_17.npy
+│   │                   │   ├── output.pkl_18.npy
+│   │                   │   ├── output.pkl_19.npy
+│   │                   │   ├── output.pkl_20.npy
+│   │                   │   ├── output.pkl_21.npy
+│   │                   │   ├── output.pkl_22.npy
+│   │                   │   └── output.pkl_23.npy
+│   │                   ├── 184c3019c4e59b702c25c967166a24f8
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   ├── output.pkl_01.npy
+│   │                   │   ├── output.pkl_02.npy
+│   │                   │   ├── output.pkl_03.npy
+│   │                   │   ├── output.pkl_04.npy
+│   │                   │   ├── output.pkl_05.npy
+│   │                   │   ├── output.pkl_06.npy
+│   │                   │   ├── output.pkl_07.npy
+│   │                   │   ├── output.pkl_08.npy
+│   │                   │   ├── output.pkl_09.npy
+│   │                   │   ├── output.pkl_10.npy
+│   │                   │   ├── output.pkl_11.npy
+│   │                   │   ├── output.pkl_12.npy
+│   │                   │   ├── output.pkl_13.npy
+│   │                   │   ├── output.pkl_14.npy
+│   │                   │   ├── output.pkl_15.npy
+│   │                   │   ├── output.pkl_16.npy
+│   │                   │   ├── output.pkl_17.npy
+│   │                   │   ├── output.pkl_18.npy
+│   │                   │   ├── output.pkl_19.npy
+│   │                   │   ├── output.pkl_20.npy
+│   │                   │   ├── output.pkl_21.npy
+│   │                   │   ├── output.pkl_22.npy
+│   │                   │   └── output.pkl_23.npy
+│   │                   ├── 2cb78e47afd7035af9d0d9512ed298c1
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   ├── output.pkl_01.npy
+│   │                   │   ├── output.pkl_02.npy
+│   │                   │   ├── output.pkl_03.npy
+│   │                   │   ├── output.pkl_04.npy
+│   │                   │   ├── output.pkl_05.npy
+│   │                   │   ├── output.pkl_06.npy
+│   │                   │   ├── output.pkl_07.npy
+│   │                   │   ├── output.pkl_08.npy
+│   │                   │   ├── output.pkl_09.npy
+│   │                   │   ├── output.pkl_10.npy
+│   │                   │   ├── output.pkl_11.npy
+│   │                   │   ├── output.pkl_12.npy
+│   │                   │   ├── output.pkl_13.npy
+│   │                   │   ├── output.pkl_14.npy
+│   │                   │   ├── output.pkl_15.npy
+│   │                   │   ├── output.pkl_16.npy
+│   │                   │   ├── output.pkl_17.npy
+│   │                   │   ├── output.pkl_18.npy
+│   │                   │   ├── output.pkl_19.npy
+│   │                   │   ├── output.pkl_20.npy
+│   │                   │   ├── output.pkl_21.npy
+│   │                   │   ├── output.pkl_22.npy
+│   │                   │   └── output.pkl_23.npy
+│   │                   ├── 3449caee7750ddedddce438380f3d7c6
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   └── output.pkl_01.npy
+│   │                   ├── 36fcc34383c862c9b0ae82cf24684b37
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   ├── output.pkl_01.npy
+│   │                   │   ├── output.pkl_02.npy
+│   │                   │   ├── output.pkl_03.npy
+│   │                   │   ├── output.pkl_04.npy
+│   │                   │   ├── output.pkl_05.npy
+│   │                   │   ├── output.pkl_06.npy
+│   │                   │   ├── output.pkl_07.npy
+│   │                   │   ├── output.pkl_08.npy
+│   │                   │   ├── output.pkl_09.npy
+│   │                   │   ├── output.pkl_10.npy
+│   │                   │   ├── output.pkl_11.npy
+│   │                   │   ├── output.pkl_12.npy
+│   │                   │   ├── output.pkl_13.npy
+│   │                   │   ├── output.pkl_14.npy
+│   │                   │   ├── output.pkl_15.npy
+│   │                   │   ├── output.pkl_16.npy
+│   │                   │   ├── output.pkl_17.npy
+│   │                   │   ├── output.pkl_18.npy
+│   │                   │   ├── output.pkl_19.npy
+│   │                   │   ├── output.pkl_20.npy
+│   │                   │   ├── output.pkl_21.npy
+│   │                   │   ├── output.pkl_22.npy
+│   │                   │   └── output.pkl_23.npy
+│   │                   ├── 4f1a78103322cb90486f0115f5b1f812
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   ├── output.pkl_01.npy
+│   │                   │   ├── output.pkl_02.npy
+│   │                   │   ├── output.pkl_03.npy
+│   │                   │   ├── output.pkl_04.npy
+│   │                   │   ├── output.pkl_05.npy
+│   │                   │   ├── output.pkl_06.npy
+│   │                   │   ├── output.pkl_07.npy
+│   │                   │   ├── output.pkl_08.npy
+│   │                   │   ├── output.pkl_09.npy
+│   │                   │   ├── output.pkl_10.npy
+│   │                   │   ├── output.pkl_11.npy
+│   │                   │   ├── output.pkl_12.npy
+│   │                   │   ├── output.pkl_13.npy
+│   │                   │   ├── output.pkl_14.npy
+│   │                   │   ├── output.pkl_15.npy
+│   │                   │   ├── output.pkl_16.npy
+│   │                   │   ├── output.pkl_17.npy
+│   │                   │   ├── output.pkl_18.npy
+│   │                   │   ├── output.pkl_19.npy
+│   │                   │   ├── output.pkl_20.npy
+│   │                   │   ├── output.pkl_21.npy
+│   │                   │   ├── output.pkl_22.npy
+│   │                   │   └── output.pkl_23.npy
+│   │                   ├── 5213437945ada30f9e730695a69078f6
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   ├── output.pkl_01.npy
+│   │                   │   ├── output.pkl_02.npy
+│   │                   │   ├── output.pkl_03.npy
+│   │                   │   ├── output.pkl_04.npy
+│   │                   │   ├── output.pkl_05.npy
+│   │                   │   ├── output.pkl_06.npy
+│   │                   │   ├── output.pkl_07.npy
+│   │                   │   ├── output.pkl_08.npy
+│   │                   │   ├── output.pkl_09.npy
+│   │                   │   ├── output.pkl_10.npy
+│   │                   │   ├── output.pkl_11.npy
+│   │                   │   ├── output.pkl_12.npy
+│   │                   │   ├── output.pkl_13.npy
+│   │                   │   ├── output.pkl_14.npy
+│   │                   │   ├── output.pkl_15.npy
+│   │                   │   ├── output.pkl_16.npy
+│   │                   │   ├── output.pkl_17.npy
+│   │                   │   ├── output.pkl_18.npy
+│   │                   │   ├── output.pkl_19.npy
+│   │                   │   ├── output.pkl_20.npy
+│   │                   │   ├── output.pkl_21.npy
+│   │                   │   ├── output.pkl_22.npy
+│   │                   │   └── output.pkl_23.npy
+│   │                   ├── 591c148cfb287a4d8a08eec94e222a8f
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   ├── output.pkl_01.npy
+│   │                   │   ├── output.pkl_02.npy
+│   │                   │   ├── output.pkl_03.npy
+│   │                   │   ├── output.pkl_04.npy
+│   │                   │   ├── output.pkl_05.npy
+│   │                   │   ├── output.pkl_06.npy
+│   │                   │   ├── output.pkl_07.npy
+│   │                   │   ├── output.pkl_08.npy
+│   │                   │   ├── output.pkl_09.npy
+│   │                   │   ├── output.pkl_10.npy
+│   │                   │   ├── output.pkl_11.npy
+│   │                   │   ├── output.pkl_12.npy
+│   │                   │   ├── output.pkl_13.npy
+│   │                   │   ├── output.pkl_14.npy
+│   │                   │   ├── output.pkl_15.npy
+│   │                   │   ├── output.pkl_16.npy
+│   │                   │   ├── output.pkl_17.npy
+│   │                   │   ├── output.pkl_18.npy
+│   │                   │   ├── output.pkl_19.npy
+│   │                   │   ├── output.pkl_20.npy
+│   │                   │   ├── output.pkl_21.npy
+│   │                   │   ├── output.pkl_22.npy
+│   │                   │   ├── output.pkl_23.npy
+│   │                   │   ├── output.pkl_24.npy
+│   │                   │   ├── output.pkl_25.npy
+│   │                   │   ├── output.pkl_26.npy
+│   │                   │   ├── output.pkl_27.npy
+│   │                   │   ├── output.pkl_28.npy
+│   │                   │   ├── output.pkl_29.npy
+│   │                   │   ├── output.pkl_30.npy
+│   │                   │   ├── output.pkl_31.npy
+│   │                   │   ├── output.pkl_32.npy
+│   │                   │   ├── output.pkl_33.npy
+│   │                   │   ├── output.pkl_34.npy
+│   │                   │   ├── output.pkl_35.npy
+│   │                   │   ├── output.pkl_36.npy
+│   │                   │   ├── output.pkl_37.npy
+│   │                   │   ├── output.pkl_38.npy
+│   │                   │   ├── output.pkl_39.npy
+│   │                   │   ├── output.pkl_40.npy
+│   │                   │   ├── output.pkl_41.npy
+│   │                   │   ├── output.pkl_42.npy
+│   │                   │   ├── output.pkl_43.npy
+│   │                   │   ├── output.pkl_44.npy
+│   │                   │   ├── output.pkl_45.npy
+│   │                   │   └── output.pkl_46.npy
+│   │                   ├── 5aba551020099b983830a482e19e2d3a
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   ├── output.pkl_01.npy
+│   │                   │   ├── output.pkl_02.npy
+│   │                   │   ├── output.pkl_03.npy
+│   │                   │   ├── output.pkl_04.npy
+│   │                   │   ├── output.pkl_05.npy
+│   │                   │   ├── output.pkl_06.npy
+│   │                   │   ├── output.pkl_07.npy
+│   │                   │   ├── output.pkl_08.npy
+│   │                   │   ├── output.pkl_09.npy
+│   │                   │   ├── output.pkl_10.npy
+│   │                   │   ├── output.pkl_11.npy
+│   │                   │   ├── output.pkl_12.npy
+│   │                   │   ├── output.pkl_13.npy
+│   │                   │   ├── output.pkl_14.npy
+│   │                   │   ├── output.pkl_15.npy
+│   │                   │   ├── output.pkl_16.npy
+│   │                   │   ├── output.pkl_17.npy
+│   │                   │   ├── output.pkl_18.npy
+│   │                   │   ├── output.pkl_19.npy
+│   │                   │   ├── output.pkl_20.npy
+│   │                   │   ├── output.pkl_21.npy
+│   │                   │   ├── output.pkl_22.npy
+│   │                   │   └── output.pkl_23.npy
+│   │                   ├── 5f7d88441a33bb679bd29264a7b08e24
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   ├── output.pkl_01.npy
+│   │                   │   ├── output.pkl_02.npy
+│   │                   │   ├── output.pkl_03.npy
+│   │                   │   ├── output.pkl_04.npy
+│   │                   │   ├── output.pkl_05.npy
+│   │                   │   ├── output.pkl_06.npy
+│   │                   │   ├── output.pkl_07.npy
+│   │                   │   ├── output.pkl_08.npy
+│   │                   │   ├── output.pkl_09.npy
+│   │                   │   ├── output.pkl_10.npy
+│   │                   │   ├── output.pkl_11.npy
+│   │                   │   ├── output.pkl_12.npy
+│   │                   │   ├── output.pkl_13.npy
+│   │                   │   ├── output.pkl_14.npy
+│   │                   │   ├── output.pkl_15.npy
+│   │                   │   ├── output.pkl_16.npy
+│   │                   │   ├── output.pkl_17.npy
+│   │                   │   ├── output.pkl_18.npy
+│   │                   │   ├── output.pkl_19.npy
+│   │                   │   ├── output.pkl_20.npy
+│   │                   │   ├── output.pkl_21.npy
+│   │                   │   ├── output.pkl_22.npy
+│   │                   │   └── output.pkl_23.npy
+│   │                   ├── 9d67f3736c1ec465299339041e80f14e
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   ├── output.pkl_01.npy
+│   │                   │   ├── output.pkl_02.npy
+│   │                   │   ├── output.pkl_03.npy
+│   │                   │   ├── output.pkl_04.npy
+│   │                   │   ├── output.pkl_05.npy
+│   │                   │   ├── output.pkl_06.npy
+│   │                   │   ├── output.pkl_07.npy
+│   │                   │   ├── output.pkl_08.npy
+│   │                   │   ├── output.pkl_09.npy
+│   │                   │   ├── output.pkl_10.npy
+│   │                   │   ├── output.pkl_11.npy
+│   │                   │   ├── output.pkl_12.npy
+│   │                   │   ├── output.pkl_13.npy
+│   │                   │   ├── output.pkl_14.npy
+│   │                   │   ├── output.pkl_15.npy
+│   │                   │   ├── output.pkl_16.npy
+│   │                   │   ├── output.pkl_17.npy
+│   │                   │   ├── output.pkl_18.npy
+│   │                   │   ├── output.pkl_19.npy
+│   │                   │   ├── output.pkl_20.npy
+│   │                   │   ├── output.pkl_21.npy
+│   │                   │   ├── output.pkl_22.npy
+│   │                   │   └── output.pkl_23.npy
+│   │                   ├── a3697d39420a5c05908f877f95246892
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   ├── output.pkl_01.npy
+│   │                   │   ├── output.pkl_02.npy
+│   │                   │   ├── output.pkl_03.npy
+│   │                   │   ├── output.pkl_04.npy
+│   │                   │   ├── output.pkl_05.npy
+│   │                   │   ├── output.pkl_06.npy
+│   │                   │   ├── output.pkl_07.npy
+│   │                   │   ├── output.pkl_08.npy
+│   │                   │   ├── output.pkl_09.npy
+│   │                   │   ├── output.pkl_10.npy
+│   │                   │   ├── output.pkl_11.npy
+│   │                   │   ├── output.pkl_12.npy
+│   │                   │   ├── output.pkl_13.npy
+│   │                   │   ├── output.pkl_14.npy
+│   │                   │   ├── output.pkl_15.npy
+│   │                   │   ├── output.pkl_16.npy
+│   │                   │   ├── output.pkl_17.npy
+│   │                   │   ├── output.pkl_18.npy
+│   │                   │   ├── output.pkl_19.npy
+│   │                   │   ├── output.pkl_20.npy
+│   │                   │   ├── output.pkl_21.npy
+│   │                   │   ├── output.pkl_22.npy
+│   │                   │   └── output.pkl_23.npy
+│   │                   ├── b24248ee93b2053b7e6e9641f0b7894d
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   ├── output.pkl_01.npy
+│   │                   │   ├── output.pkl_02.npy
+│   │                   │   ├── output.pkl_03.npy
+│   │                   │   ├── output.pkl_04.npy
+│   │                   │   ├── output.pkl_05.npy
+│   │                   │   ├── output.pkl_06.npy
+│   │                   │   ├── output.pkl_07.npy
+│   │                   │   ├── output.pkl_08.npy
+│   │                   │   ├── output.pkl_09.npy
+│   │                   │   ├── output.pkl_10.npy
+│   │                   │   ├── output.pkl_11.npy
+│   │                   │   ├── output.pkl_12.npy
+│   │                   │   ├── output.pkl_13.npy
+│   │                   │   ├── output.pkl_14.npy
+│   │                   │   ├── output.pkl_15.npy
+│   │                   │   ├── output.pkl_16.npy
+│   │                   │   ├── output.pkl_17.npy
+│   │                   │   ├── output.pkl_18.npy
+│   │                   │   ├── output.pkl_19.npy
+│   │                   │   ├── output.pkl_20.npy
+│   │                   │   ├── output.pkl_21.npy
+│   │                   │   ├── output.pkl_22.npy
+│   │                   │   └── output.pkl_23.npy
+│   │                   ├── d9f20a1bb3542955fe63e1c4ae16f0ef
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   ├── output.pkl_01.npy
+│   │                   │   ├── output.pkl_02.npy
+│   │                   │   ├── output.pkl_03.npy
+│   │                   │   ├── output.pkl_04.npy
+│   │                   │   ├── output.pkl_05.npy
+│   │                   │   ├── output.pkl_06.npy
+│   │                   │   ├── output.pkl_07.npy
+│   │                   │   ├── output.pkl_08.npy
+│   │                   │   ├── output.pkl_09.npy
+│   │                   │   ├── output.pkl_10.npy
+│   │                   │   ├── output.pkl_11.npy
+│   │                   │   ├── output.pkl_12.npy
+│   │                   │   ├── output.pkl_13.npy
+│   │                   │   ├── output.pkl_14.npy
+│   │                   │   ├── output.pkl_15.npy
+│   │                   │   ├── output.pkl_16.npy
+│   │                   │   ├── output.pkl_17.npy
+│   │                   │   ├── output.pkl_18.npy
+│   │                   │   ├── output.pkl_19.npy
+│   │                   │   ├── output.pkl_20.npy
+│   │                   │   ├── output.pkl_21.npy
+│   │                   │   ├── output.pkl_22.npy
+│   │                   │   └── output.pkl_23.npy
+│   │                   ├── ea384abf94b2ad81ec8db28eb85a8e52
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   ├── output.pkl_01.npy
+│   │                   │   ├── output.pkl_02.npy
+│   │                   │   ├── output.pkl_03.npy
+│   │                   │   ├── output.pkl_04.npy
+│   │                   │   ├── output.pkl_05.npy
+│   │                   │   ├── output.pkl_06.npy
+│   │                   │   ├── output.pkl_07.npy
+│   │                   │   ├── output.pkl_08.npy
+│   │                   │   ├── output.pkl_09.npy
+│   │                   │   ├── output.pkl_10.npy
+│   │                   │   ├── output.pkl_11.npy
+│   │                   │   ├── output.pkl_12.npy
+│   │                   │   ├── output.pkl_13.npy
+│   │                   │   ├── output.pkl_14.npy
+│   │                   │   ├── output.pkl_15.npy
+│   │                   │   ├── output.pkl_16.npy
+│   │                   │   ├── output.pkl_17.npy
+│   │                   │   ├── output.pkl_18.npy
+│   │                   │   ├── output.pkl_19.npy
+│   │                   │   ├── output.pkl_20.npy
+│   │                   │   ├── output.pkl_21.npy
+│   │                   │   ├── output.pkl_22.npy
+│   │                   │   └── output.pkl_23.npy
+│   │                   ├── ef7432c4229c2c5733ec10421e6fe207
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   ├── output.pkl_01.npy
+│   │                   │   ├── output.pkl_02.npy
+│   │                   │   ├── output.pkl_03.npy
+│   │                   │   ├── output.pkl_04.npy
+│   │                   │   ├── output.pkl_05.npy
+│   │                   │   ├── output.pkl_06.npy
+│   │                   │   ├── output.pkl_07.npy
+│   │                   │   ├── output.pkl_08.npy
+│   │                   │   ├── output.pkl_09.npy
+│   │                   │   ├── output.pkl_10.npy
+│   │                   │   ├── output.pkl_11.npy
+│   │                   │   ├── output.pkl_12.npy
+│   │                   │   ├── output.pkl_13.npy
+│   │                   │   ├── output.pkl_14.npy
+│   │                   │   ├── output.pkl_15.npy
+│   │                   │   ├── output.pkl_16.npy
+│   │                   │   ├── output.pkl_17.npy
+│   │                   │   ├── output.pkl_18.npy
+│   │                   │   ├── output.pkl_19.npy
+│   │                   │   ├── output.pkl_20.npy
+│   │                   │   ├── output.pkl_21.npy
+│   │                   │   ├── output.pkl_22.npy
+│   │                   │   └── output.pkl_23.npy
+│   │                   ├── fc2a05f978e420e3365a535a16651ab3
+│   │                   │   ├── metadata.json
+│   │                   │   ├── output.pkl
+│   │                   │   ├── output.pkl_01.npy
+│   │                   │   ├── output.pkl_02.npy
+│   │                   │   ├── output.pkl_03.npy
+│   │                   │   ├── output.pkl_04.npy
+│   │                   │   ├── output.pkl_05.npy
+│   │                   │   ├── output.pkl_06.npy
+│   │                   │   ├── output.pkl_07.npy
+│   │                   │   ├── output.pkl_08.npy
+│   │                   │   ├── output.pkl_09.npy
+│   │                   │   ├── output.pkl_10.npy
+│   │                   │   ├── output.pkl_11.npy
+│   │                   │   ├── output.pkl_12.npy
+│   │                   │   ├── output.pkl_13.npy
+│   │                   │   ├── output.pkl_14.npy
+│   │                   │   ├── output.pkl_15.npy
+│   │                   │   ├── output.pkl_16.npy
+│   │                   │   ├── output.pkl_17.npy
+│   │                   │   ├── output.pkl_18.npy
+│   │                   │   ├── output.pkl_19.npy
+│   │                   │   ├── output.pkl_20.npy
+│   │                   │   ├── output.pkl_21.npy
+│   │                   │   ├── output.pkl_22.npy
+│   │                   │   └── output.pkl_23.npy
+│   │                   └── func_code.py
+│   └── script.sh
+├── hESC
+│   ├── epi
+│   │   ├── ctcf
+│   │   │   ├── GSM733672_hg19_wgEncodeBroadHistoneH1hescCtcfStdAlnRep1.bam
+│   │   │   ├── GSM733672_hg19_wgEncodeBroadHistoneH1hescCtcfStdAlnRep2.bam
+│   │   │   ├── GSM803419_hg19_wgEncodeHaibTfbsH1hescCtcfsc5916V0416102RawRep1.bigWig
+│   │   │   └── GSM803419_hg19_wgEncodeHaibTfbsH1hescCtcfsc5916V0416102RawRep2.bigWig
+│   │   ├── H3K27me3
+│   │   │   ├── GSM733748_hg19_wgEncodeBroadHistoneH1hescH3k27me3StdAlnRep1.bam
+│   │   │   └── GSM733748_hg19_wgEncodeBroadHistoneH1hescH3k27me3StdAlnRep2.bam
+│   │   ├── H4K20me1
+│   │   │   ├── GSM733687_hg19_wgEncodeBroadHistoneH1hescH4k20me1StdAlnRep1.bam
+│   │   │   └── GSM733687_hg19_wgEncodeBroadHistoneH1hescH4k20me1StdAlnRep2.bam
+│   │   └── laminb1
+│   ├── expression
+│   │   ├── combined.tab
+│   │   ├── expression.sql
+│   │   ├── h1_r1.tab
+│   │   ├── h1_r2.tab
+│   │   └── SOURCE
+│   ├── ic
+│   │   ├── hESC-all-HindIII-1000k.hm
+│   │   ├── hESC-all-HindIII-10k_HighRes.byChr
+│   │   ├── hESC-all-HindIII-200k.hm
+│   │   ├── hESC-all-HindIII-20k_HighRes.byChr
+│   │   ├── hESC-R1-HindIII-1000k.hm
+│   │   ├── hESC-R1-HindIII-10k_HighRes.byChr
+│   │   ├── hESC-R1-HindIII-2000k.hm
+│   │   ├── hESC-R1-HindIII-200k.hm
+│   │   ├── hESC-R1-HindIII-20k_HighRes.byChr
+│   │   ├── hESC-R1-HindIII-500k.hm
+│   │   ├── hESC-R2-HindIII-1000k.hm
+│   │   ├── hESC-R2-HindIII-10k_HighRes.byChr
+│   │   ├── hESC-R2-HindIII-2000k.hm
+│   │   ├── hESC-R2-HindIII-200k.hm
+│   │   ├── hESC-R2-HindIII-20k_HighRes.byChr
+│   │   └── hESC-R2-HindIII-500k.hm
+│   ├── raw
+│   │   ├── hESC-all-HindIII-10k_HighRes.byChr
+│   │   ├── hESC-all-HindIII-20k_HighRes.byChr
+│   │   ├── hESC-R1-HindIII-1000k.hm
+│   │   ├── hESC-R1-HindIII-10k_HighRes.byChr
+│   │   ├── hESC-R1-HindIII-2000k.hm
+│   │   ├── hESC-R1-HindIII-200k.hm
+│   │   ├── hESC-R1-HindIII-20k_HighRes.byChr
+│   │   ├── hESC-R1-HindIII-500k.hm
+│   │   ├── hESC-R2-HindIII-1000k.hm
+│   │   ├── hESC-R2-HindIII-10k_HighRes.byChr
+│   │   ├── hESC-R2-HindIII-2000k.hm
+│   │   ├── hESC-R2-HindIII-200k.hm
+│   │   ├── hESC-R2-HindIII-20k_HighRes.byChr
+│   │   └── hESC-R2-HindIII-500k.hm
+│   └── sra
+│       ├── r1
+│       │   ├── SRR400260.sra
+│       │   ├── SRR400261.sra
+│       │   ├── SRR400262.sra
+│       │   └── SRR400263.sra
+│       ├── r2
+│       │   ├── SRR442155.sra
+│       │   ├── SRR442156.sra
+│       │   └── SRR442157.sra
+│       └── SOURCE
+├── IMR90
+│   ├── epi
+│   │   ├── cebpb
+│   │   │   ├── GSM935519_hg19_wgEncodeSydhTfbsImr90CebpbIggrabSig.bedg
+│   │   │   └── GSM935519_hg19_wgEncodeSydhTfbsImr90CebpbIggrabSig.bigWig
+│   │   ├── ctcf
+│   │   │   ├── GSM1055825_CTCF.IMR90.mono.bed.gz
+│   │   │   ├── GSM935404_hg19_wgEncodeSydhTfbsImr90CtcfbIggrabSig.bedg
+│   │   │   └── GSM935404_hg19_wgEncodeSydhTfbsImr90CtcfbIggrabSig.bigWig
+│   │   ├── dnase
+│   │   │   ├── GSM1008586_hg19_wgEncodeOpenChromDnaseImr90BaseOverlapSignal.bedg
+│   │   │   └── GSM1008586_hg19_wgEncodeOpenChromDnaseImr90BaseOverlapSignal.bigWig
+│   │   ├── laminb1
+│   │   │   ├── rep1.txt
+│   │   │   ├── rep2.txt
+│   │   │   ├── rep3.txt
+│   │   │   ├── rep4.txt
+│   │   │   ├── rep5.txt
+│   │   │   └── SOURCE
+│   │   ├── mafk
+│   │   │   ├── GSM935403_hg19_wgEncodeSydhTfbsImr90MafkIggrabSig.bedg
+│   │   │   └── GSM935403_hg19_wgEncodeSydhTfbsImr90MafkIggrabSig.bigWig
+│   │   ├── pol2
+│   │   │   ├── GSM935513_hg19_wgEncodeSydhTfbsImr90Pol2IggrabSig.bedg
+│   │   │   └── GSM935513_hg19_wgEncodeSydhTfbsImr90Pol2IggrabSig.bigWig
+│   │   └── rad21
+│   │       ├── GSM935624_hg19_wgEncodeSydhTfbsImr90Rad21IggrabSig.bedg
+│   │       └── GSM935624_hg19_wgEncodeSydhTfbsImr90Rad21IggrabSig.bigWig
+│   ├── expression
+│   │   ├── hg-u133-plus-2.csv
+│   │   ├── i90r1.tab
+│   │   ├── i90r2.tab
+│   │   ├── probes.sql
+│   │   ├── process.sh
+│   │   ├── r1.tab
+│   │   ├── r2.tab
+│   │   └── SOURCE
+│   ├── ic
+│   │   ├── IMR90-R1-HindIII-1000k.hm
+│   │   ├── IMR90-R1-HindIII-10k_HighRes.byChr
+│   │   ├── IMR90-R1-HindIII-2000k.hm
+│   │   ├── IMR90-R1-HindIII-200k.hm
+│   │   ├── IMR90-R1-HindIII-20k_HighRes.byChr
+│   │   ├── IMR90-R1-HindIII-500k.hm
+│   │   ├── IMR90-R2-HindIII-1000k.hm
+│   │   ├── IMR90-R2-HindIII-10k_HighRes.byChr
+│   │   ├── IMR90-R2-HindIII-2000k.hm
+│   │   ├── IMR90-R2-HindIII-200k.hm
+│   │   ├── IMR90-R2-HindIII-20k_HighRes.byChr
+│   │   ├── IMR90-R2-HindIII-500k.hm
+│   │   ├── IMR90-R3-HindIII-1000k.hm
+│   │   ├── IMR90-R3-HindIII-10k_HighRes.byChr
+│   │   ├── IMR90-R3-HindIII-2000k.hm
+│   │   ├── IMR90-R3-HindIII-200k.hm
+│   │   ├── IMR90-R3-HindIII-20k_HighRes.byChr
+│   │   ├── IMR90-R3-HindIII-500k.hm
+│   │   ├── IMR90-R4-HindIII-1000k.hm
+│   │   ├── IMR90-R4-HindIII-10k_HighRes.byChr
+│   │   ├── IMR90-R4-HindIII-2000k.hm
+│   │   ├── IMR90-R4-HindIII-200k.hm
+│   │   ├── IMR90-R4-HindIII-20k_HighRes.byChr
+│   │   ├── IMR90-R4-HindIII-500k.hm
+│   │   ├── IMR90-R5-HindIII-1000k.hm
+│   │   ├── IMR90-R5-HindIII-10k_HighRes.byChr
+│   │   ├── IMR90-R5-HindIII-2000k.hm
+│   │   ├── IMR90-R5-HindIII-200k.hm
+│   │   ├── IMR90-R5-HindIII-20k_HighRes.byChr
+│   │   ├── IMR90-R5-HindIII-500k.hm
+│   │   ├── IMR90-R6-HindIII-1000k.hm
+│   │   ├── IMR90-R6-HindIII-10k_HighRes.byChr
+│   │   ├── IMR90-R6-HindIII-2000k.hm
+│   │   ├── IMR90-R6-HindIII-200k.hm
+│   │   ├── IMR90-R6-HindIII-20k_HighRes.byChr
+│   │   └── IMR90-R6-HindIII-500k.hm
+│   ├── raw
+│   │   ├── IMR90-all-HindIII-1000k.hm
+│   │   ├── IMR90-all-HindIII-10k_HighRes.byChr
+│   │   ├── IMR90-all-HindIII-2000k.hm
+│   │   ├── IMR90-all-HindIII-200k.hm
+│   │   ├── IMR90-all-HindIII-20k_HighRes.byChr
+│   │   ├── IMR90-all-HindIII-500k.hm
+│   │   ├── IMR90-R1-HindIII-1000k.hm
+│   │   ├── IMR90-R1-HindIII-10k_HighRes.byChr
+│   │   ├── IMR90-R1-HindIII-2000k.hm
+│   │   ├── IMR90-R1-HindIII-200k.hm
+│   │   ├── IMR90-R1-HindIII-20k_HighRes.byChr
+│   │   ├── IMR90-R1-HindIII-500k.hm
+│   │   ├── IMR90-R2-HindIII-1000k.hm
+│   │   ├── IMR90-R2-HindIII-10k_HighRes.byChr
+│   │   ├── IMR90-R2-HindIII-2000k.hm
+│   │   ├── IMR90-R2-HindIII-200k.hm
+│   │   ├── IMR90-R2-HindIII-20k_HighRes.byChr
+│   │   ├── IMR90-R2-HindIII-500k.hm
+│   │   ├── IMR90-R3-HindIII-1000k.hm
+│   │   ├── IMR90-R3-HindIII-10k_HighRes.byChr
+│   │   ├── IMR90-R3-HindIII-2000k.hm
+│   │   ├── IMR90-R3-HindIII-200k.hm
+│   │   ├── IMR90-R3-HindIII-20k_HighRes.byChr
+│   │   ├── IMR90-R3-HindIII-500k.hm
+│   │   ├── IMR90-R4-HindIII-1000k.hm
+│   │   ├── IMR90-R4-HindIII-10k_HighRes.byChr
+│   │   ├── IMR90-R4-HindIII-2000k.hm
+│   │   ├── IMR90-R4-HindIII-200k.hm
+│   │   ├── IMR90-R4-HindIII-20k_HighRes.byChr
+│   │   ├── IMR90-R4-HindIII-500k.hm
+│   │   ├── IMR90-R5-HindIII-1000k.hm
+│   │   ├── IMR90-R5-HindIII-10k_HighRes.byChr
+│   │   ├── IMR90-R5-HindIII-2000k.hm
+│   │   ├── IMR90-R5-HindIII-200k.hm
+│   │   ├── IMR90-R5-HindIII-20k_HighRes.byChr
+│   │   ├── IMR90-R5-HindIII-500k.hm
+│   │   ├── IMR90-R6-HindIII-1000k.hm
+│   │   ├── IMR90-R6-HindIII-10k_HighRes.byChr
+│   │   ├── IMR90-R6-HindIII-2000k.hm
+│   │   ├── IMR90-R6-HindIII-200k.hm
+│   │   ├── IMR90-R6-HindIII-20k_HighRes.byChr
+│   │   ├── IMR90-R6-HindIII-500k.hm
+│   │   └── statistics
+│   │       ├── IMR90-all-HindIII_refined.stat
+│   │       ├── IMR90-R1-HindIII
+│   │       │   └── mapped-hg19
+│   │       │       ├── SRR639025.hdf5.stat
+│   │       │       ├── SRR639026.hdf5.stat
+│   │       │       ├── SRR639027.hdf5.stat
+│   │       │       ├── SRR639028.hdf5.stat
+│   │       │       └── SRR639029.hdf5.stat
+│   │       ├── IMR90-R1-HindIII.stat
+│   │       ├── IMR90-R2-HindIII
+│   │       │   └── mapped-hg19
+│   │       │       ├── SRR639030.hdf5.stat
+│   │       │       ├── SRR639031.hdf5.stat
+│   │       │       ├── SRR639032.hdf5.stat
+│   │       │       └── SRR639033.hdf5.stat
+│   │       ├── IMR90-R2-HindIII.stat
+│   │       ├── IMR90-R3-HindIII
+│   │       │   └── mapped-hg19
+│   │       │       ├── SRR881990.hdf5.stat
+│   │       │       ├── SRR881991.hdf5.stat
+│   │       │       └── SRR881992.hdf5.stat
+│   │       ├── IMR90-R3-HindIII.stat
+│   │       ├── IMR90-R4-HindIII
+│   │       │   └── mapped-hg19
+│   │       │       ├── SRR881993.hdf5.stat
+│   │       │       ├── SRR881994.hdf5.stat
+│   │       │       └── SRR881995.hdf5.stat
+│   │       ├── IMR90-R4-HindIII.stat
+│   │       ├── IMR90-R5-HindIII
+│   │       │   └── mapped-hg19
+│   │       │       └── SRR881996.hdf5.stat
+│   │       ├── IMR90-R5-HindIII.stat
+│   │       ├── IMR90-R6-HindIII
+│   │       │   └── mapped-hg19
+│   │       │       └── SRR881997.hdf5.stat
+│   │       └── IMR90-R6-HindIII.stat
+│   └── sra
+│       ├── r1
+│       │   ├── EXPERIMENT
+│       │   ├── SRR639025.sra
+│       │   ├── SRR639026.sra
+│       │   ├── SRR639027.sra
+│       │   ├── SRR639028.sra
+│       │   └── SRR639029.sra
+│       ├── r2
+│       │   ├── EXPERIMENT
+│       │   ├── SRR639030.sra
+│       │   ├── SRR639031.sra
+│       │   ├── SRR639032.sra
+│       │   └── SRR639033.sra
+│       ├── r3
+│       │   ├── EXPERIMENT
+│       │   ├── SRR881990.sra
+│       │   ├── SRR881991.sra
+│       │   └── SRR881992.sra
+│       ├── r4
+│       │   ├── EXPERIMENT
+│       │   ├── SRR881993.sra
+│       │   ├── SRR881994.sra
+│       │   └── SRR881995.sra
+│       ├── r5
+│       │   ├── EXPERIMENT
+│       │   └── SRR881996.sra
+│       └── r6
+│           ├── EXPERIMENT
+│           └── SRR881997.sra
+├── SOURCE
+└── tcga
+    ├── broad.mit.edu__Illumina_Genome_Analyzer_DNA_Sequencing_level2.maf
+    ├── f94b2db8-c9b1-4b4e-b83f-5a8aaa285362.tar.gz
+    ├── file_annotations.txt
+    ├── file_manifest.txt
+    ├── FILE_SAMPLE_MAP.txt
+    ├── maf2bed.py
+    ├── README_DCC.txt
+    └── tcga.bed
+
+71 directories, 703 files

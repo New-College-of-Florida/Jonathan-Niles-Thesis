@@ -32,6 +32,10 @@ Unfortunately, there are many dependencies, which can be downloaded and set up
 with the dependencies.sh script.  More details are contained in the `INSTALL`
 file.
 
+After submission of the thesis, an exact dump of the data directory on the
+server was written to directory.txt.  Look there for exact file names and
+folders used.  If you have any questions, contact the author.
+
 Investigations
 --------------
 
