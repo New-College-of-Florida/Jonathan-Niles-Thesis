@@ -173,7 +173,7 @@ def mutationsAtBoundaries(cellType="IMR90", size=5000, iterations=25):
         # plot the actual mean
         ax.axvline(overlap, color="k", label="Observed Number")
         pValue = 1 - stats.norm(mean, stddev).cdf(overlap)
-        pText = "$p$-value > {0:0.03f}".format(pValue)
+        pText = "$p$-value = {0:0.03f}".format(pValue)
 
         # formatting
         m = np.max(ndist)
@@ -192,4 +192,4 @@ def mutationsAtBoundaries(cellType="IMR90", size=5000, iterations=25):
 if __name__ == "__main__":
     #mutationTypePieChart()
     #mutationsInDomains(conserved=True)
-    mutationsAtBoundaries(size=10000, iterations=1000)
+    mutationsAtBoundaries(size=5000, iterations=1000)

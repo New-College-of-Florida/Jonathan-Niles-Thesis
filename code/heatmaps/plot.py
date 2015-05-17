@@ -61,8 +61,10 @@ def loadHiResData(cellType, chrom, rep="R1" ):
     
     """
     global HiResLoader
-    resolution = 10000
-    fname = "/home/jniles/data/{0}/ic/{0}-{1}-HindIII-10k_HighRes.byChr"
+    #resolution = 10000
+    resolution = 20000
+    #fname = "/home/jniles/data/{0}/ic/{0}-{1}-HindIII-10k_HighRes.byChr"
+    fname = "/home/jniles/data/{0}/ic/{0}-{1}-HindIII-20k_HighRes.byChr"
     try:
         data = HiResLoader.data[(chrom,chrom)].getData()
     except:
@@ -96,12 +98,14 @@ def highResHM(cellType, chrom, rep="R1"):
     ax.imshow(np.log(data), interpolation='None', cmap=plt.cm.Reds)
 
     fig.suptitle("{0} {1}".format(cellType, rep))
-    ax.set_title('{0} 10kb Resolution'.format(chromLabel))
+    #ax.set_title('{0} 10kb Resolution'.format(chromLabel))
+    ax.set_title('{0} 20kb Resolution'.format(chromLabel))
     ax.set_xlabel(chromLabel)
     ax.set_ylabel(chromLabel)
 
     # save the figure
-    figPath = "{0}-{1}-{2}.png".format(cellType, rep, chromLabel)
+    #figPath = "{0}-{1}-{2}.png".format(cellType, rep, chromLabel)
+    figPath = "{0}-{1}-{2}-20kb.png".format(cellType, rep, chromLabel)
     fig.savefig(nu.join(saveDir, figPath), dpi=800)
     plt.close()
     return

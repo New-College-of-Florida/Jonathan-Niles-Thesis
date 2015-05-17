@@ -96,7 +96,7 @@ def domainbar(cellType, labelBar=False):
     fig, ax = plt.subplots()
     ax.set_title("{0} Domains by Chromosome".format(cellType))
     ax.set_xlabel("Chromosomes")
-    ax.set_ylabel("Domains")
+    ax.set_ylabel("Num. of Domains")
 
     # get colors from colormap
     e = plt.cm.gist_earth
@@ -110,7 +110,7 @@ def domainbar(cellType, labelBar=False):
         if labelBar:
             autolabel(ax, rects)
 
-    xlabels = map(lambda x: "chr{0}".format(x) if x != 23 else "chrX", ind+1)
+    xlabels = map(lambda x: "{0}".format(x) if x != 23 else "X", ind+1)
 
     ax.legend(loc="best")
     ax.set_xticks(ind + (len(sizes)*width / 2.))
